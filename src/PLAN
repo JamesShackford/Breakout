@@ -1,0 +1,45 @@
+at least one variant of Breakout that you thought was interesting and what was interesting about it:
+	Vortex was the most interesting variant to me. I thought it was interesting because it changed the idea that a
+	brick-breaking game had to be linearly configured, and instead introduced circular motion for the paddle and a circular
+	configuration for the bricks/field
+	
+a general description of the different levels you intend to build (perhaps with "pictures" of the block configurations)
+	After each level, decrease the distance between the blocks and the blast-zone (where you lose a life if the ball reaches)
+		and increase the speed of the ball.
+	Level 1: A relatively easy level--2 rows of 1-hit blocks (blocks which take one hit to break) and 1 row of 2-hit bricks
+	Level 2: First row has 2-hit blocks and ice blocks. Second and third rows have 1-hit blocks and 2-hit blocks. Last row
+		has unbreakable blocks and 3-hit blocks.
+	Level 3: First row has 3-hit blocks and unbreakable blocks. Second row has 2-hit blocks. Third and fourth row have
+	3-hit blocks and ice blocks. Fifth row has unbreakable blocks and 3-hit blocks.
+	
+several different blocks you want to create
+	When any block is broken, it has a chance of releasing a power-up. Blocks that are harder to break
+		have a higher chance of releasing a power-up
+	1-hit block: takes one hit to break
+	2-hit block: takes 2 hits to break. Give more points than 1-hit blocks
+	3-hit block: takes 3 hits to break Give more points than 2-hit blocks
+	Ice block: Impossible to break unless you have the Fireball power-up (don't need to clear to end the level)
+	Unbreakable block: Impossible to break (don't need to clear to end the level)
+	
+several different power ups you want to create
+	Each power-up has an associated likelihood of appearing, depending on how good it is.
+	Extra ball: Adds an extra ball to the field
+	Sticky paddle: Ball sticks to paddle. Press spacebar to release the ball
+	Increase size: Increases the size of the paddle
+	Fireball: Ball speeds up considerably, but clears away all the blocks in its path (excluding unbreakable blocks)
+		and doesn't change direction unless it hits the boundary, the paddle, or an unbreakable block
+	Points power-up: Adds more points to the player's score
+	
+several different cheat keys you are planning to include
+	Numeric key (1-3) --> skip to that level
+	'L' --> adds extra life
+	'F' --> makes ball faster
+	'S' --> makes ball slower
+	'R' --> resets ball/paddle to initial position
+	'E' --> adds extra ball to field
+	
+something extra you intend to add and why you think it is a substantial addition
+	Set up field in circular configuration like in 'Vortex.' Except, the paddle is closer to the center of the screen
+	and the blocks are further away. The paddle guards a circular planet, which is why the title of this game will be
+	"Planet Protector." If the ball hits the planet, you lose a life. This is a substantial addition because it means
+	converting the typical linear system/coordinates to a circular system/coordinates
