@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 
 public class RegularBrick extends Brick
 {
@@ -19,20 +17,6 @@ public class RegularBrick extends Brick
 	}
 
 	@Override
-	public void onKeyPressed(KeyEvent key)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMouseClicked(double x, double y)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void step(double secondDelay, Field field)
 	{
 		ArrayList<FieldObject> objects = field.getFieldElements();
@@ -41,12 +25,6 @@ public class RegularBrick extends Brick
 				bouncerHit((Bouncer) currElem);
 			}
 		}
-	}
-
-	@Override
-	public Node getNode()
-	{
-		return getImage();
 	}
 
 	@Override

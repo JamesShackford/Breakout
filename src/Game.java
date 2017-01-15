@@ -25,6 +25,11 @@ public class Game extends Application
 		myBouncer.setXSpeed(100);
 		myBouncer.setYSpeed(100);
 
+		Paddle paddle = new Paddle();
+		paddle.setImage("paddle.gif");
+		paddle.setX(100);
+		paddle.setY(300);
+
 		for (int i = 0; i < 10; i++) {
 			RegularBrick brick = new RegularBrick();
 			brick.setX(i * brick.getImage().getBoundsInLocal().getWidth());
@@ -32,6 +37,7 @@ public class Game extends Application
 			fieldElements.add(brick);
 		}
 		fieldElements.add(myBouncer);
+		fieldElements.add(paddle);
 		field = new Field(stage, fieldElements);
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));

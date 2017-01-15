@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ public class Field
 	public static final int KEY_INPUT_SPEED = 5;
 
 	private Scene myScene;
+	private HashMap<FieldObject, ArrayList<FieldObject>> myMap;
 	private ArrayList<FieldObject> fieldElements;
 
 	public Field(Stage s, ArrayList<FieldObject> fieldElements)

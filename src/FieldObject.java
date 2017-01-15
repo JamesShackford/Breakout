@@ -1,13 +1,62 @@
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
-public interface FieldObject
+public abstract class FieldObject
 {
-	public void onKeyPressed(KeyEvent key);
+	private ImageView image;
 
-	public void onMouseClicked(double x, double y);
+	public double getX()
+	{
+		return image.getX();
+	}
 
-	public void step(double secondDelay, Field field);
+	public double getY()
+	{
+		return image.getY();
+	}
 
-	public Node getNode();
+	public Node getNode()
+	{
+		return getImage();
+	}
+
+	public ImageView getImage()
+	{
+		return image;
+	}
+
+	public void setX(double x)
+	{
+		image.setX(x);
+	}
+
+	public void setY(double y)
+	{
+		image.setY(y);
+	}
+
+	public void setImage(ImageView image)
+	{
+		this.image = image;
+	}
+
+	public void setImage(String imageString)
+	{
+		Image im = new Image(getClass().getClassLoader().getResourceAsStream(imageString));
+		this.image = new ImageView(im);
+	}
+
+	public void onKeyPressed(KeyEvent key)
+	{
+
+	}
+
+	public void onMouseClicked(double x, double y)
+	{
+
+	}
+
+	public abstract void step(double secondDelay, Field field);
 }
