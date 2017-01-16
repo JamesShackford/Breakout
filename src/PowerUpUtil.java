@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/**
+ * Utility class for determining if a PowerUp is produced from a broken block
+ * 
+ * @author jimmy
+ *
+ */
 public class PowerUpUtil
 {
 	public static PowerUp getPowerUp(double getPowerUpProbability)

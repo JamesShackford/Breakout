@@ -32,21 +32,46 @@ public class Bouncer extends FieldObject
 		return ySpeed;
 	}
 
+	/**
+	 * True if this bouncer has begun to move. If the spacebar is pressed while
+	 * the bouncer is stopped, the bouncer will begin to move
+	 * 
+	 * @return true if bouncer is moving, false if bouncer is stuck to paddle
+	 */
 	public boolean getStarted()
 	{
 		return started;
 	}
 
+	/**
+	 * set the x speed of the bouncer
+	 * 
+	 * @param xSpeed
+	 *            x speed
+	 */
 	public void setXSpeed(double xSpeed)
 	{
 		this.xSpeed = xSpeed;
 	}
 
+	/**
+	 * set the y speed of the bouncer
+	 * 
+	 * @param ySpeed
+	 *            y speed
+	 */
 	public void setYSpeed(double ySpeed)
 	{
 		this.ySpeed = ySpeed;
 	}
 
+	/**
+	 * Allow the ball to begin moving.
+	 * 
+	 * @param started
+	 *            true-> ball can move, false->ball can't move and is instead
+	 *            attached to the paddle
+	 */
 	public void setStarted(boolean started)
 	{
 		this.started = started;
@@ -55,6 +80,7 @@ public class Bouncer extends FieldObject
 	@Override
 	public void onKeyPressed(KeyEvent key)
 	{
+		// Start the ball when the spacebar is pressed.
 		if (key.getCode().equals(KeyCode.SPACE)) {
 			this.setStarted(true);
 		}
@@ -63,6 +89,9 @@ public class Bouncer extends FieldObject
 	@Override
 	public ArrayList<FieldObject> step(double secondDelay, Field field)
 	{
+		// If the ball has not started moving yet, the ball will move with the
+		// paddle (it
+		// will remain attached to the top of the paddle
 		if (this.getStarted() == false) {
 			for (FieldObject obj : field.getFieldElements()) {
 				if (obj instanceof Paddle) {
@@ -71,13 +100,18 @@ public class Bouncer extends FieldObject
 				}
 			}
 		}
+		// update the position of the bouncer based on its speed
 		this.getImage().setX(getX() + xSpeed * secondDelay);
 		this.getImage().setY(getY() + ySpeed * secondDelay);
 
+		// if the ball hits the left or right borders of the field, the ball
+		// will reflect off of it
 		if (getX() <= 0 || getX() + this.getImage().getBoundsInLocal().getHeight() >= field.getScene().getHeight()) {
 			setXSpeed(xSpeed * -1);
 		}
 
+		// if the ball hits the top or bottom borders of the field, the ball
+		// will reflect off of it
 		if (getY() <= 0 || getY() + this.getImage().getBoundsInLocal().getWidth() >= field.getScene().getWidth()) {
 			setYSpeed(ySpeed * -1);
 		}

@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
+/*
+ * Power Up which gives the player an extra ball.
+ */
 public class ExtraBallPower extends PowerUp
 {
-	public static final double PROBABILITY = 0.1;
-	public double velocity;
+	public static final double PROBABILITY = 1.0;
 
 	public ExtraBallPower()
 	{
@@ -13,6 +15,10 @@ public class ExtraBallPower extends PowerUp
 	@Override
 	public ArrayList<FieldObject> step(double secondDelay, Field field)
 	{
+		// If the power up hasn't already been destroyed (activated), then check
+		// if it is touching the paddle and if it
+		// is, then destroy the power up and return an ArrayList which contains
+		// the new bouncer to add to the field.
 		if (!this.getDestroyed()) {
 			for (FieldObject obj : field.getFieldElements()) {
 				if (obj instanceof Paddle) {
@@ -22,7 +28,8 @@ public class ExtraBallPower extends PowerUp
 					}
 				}
 			}
-			this.setY(this.getY() + this.getVelocity() * secondDelay);
+			// update the position of the power up based on its velocity
+			this.setY(this.getY() + this.getSpeed() * secondDelay);
 		}
 		return null;
 	}
@@ -35,17 +42,4 @@ public class ExtraBallPower extends PowerUp
 		addedObjs.add(bouncer);
 		return addedObjs;
 	}
-
-	@Override
-	public void setVelocity(double velocity)
-	{
-		this.velocity = velocity;
-	}
-
-	@Override
-	public double getVelocity()
-	{
-		return velocity;
-	}
-
 }
