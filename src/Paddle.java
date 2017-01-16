@@ -1,10 +1,16 @@
+import java.util.ArrayList;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class Paddle extends FieldObject
 {
-
 	private double speed;
+
+	public Paddle()
+	{
+		this.setImage("paddle.gif");
+	}
 
 	public double getSpeed()
 	{
@@ -20,15 +26,24 @@ public class Paddle extends FieldObject
 	public void onKeyPressed(KeyEvent key)
 	{
 		if (key.getCode().equals(KeyCode.RIGHT)) {
-			this.setSpeed(this.getSpeed() + 50 * (1 - (this.getSpeed()) / 200));
+			if (this.getSpeed() < 0) {
+				this.setSpeed(0);
+			} else {
+				this.setSpeed(this.getSpeed() + 50 * (1 - (this.getSpeed()) / 200));
+			}
 		} else if (key.getCode().equals(KeyCode.LEFT)) {
-			this.setSpeed(this.getSpeed() - 50 * (1 + (this.getSpeed()) / 200));
+			if (this.getSpeed() > 0) {
+				this.setSpeed(0);
+			} else {
+				this.setSpeed(this.getSpeed() - 50 * (1 + (this.getSpeed()) / 200));
+			}
 		}
 	}
 
 	@Override
-	public void step(double secondDelay, Field field)
+	public ArrayList<FieldObject> step(double secondDelay, Field field)
 	{
+		ArrayList<FieldObject> addedObjects = new ArrayList<FieldObject>();
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof Bouncer) {
 				Bouncer thisBouncer = (Bouncer) obj;
@@ -43,6 +58,7 @@ public class Paddle extends FieldObject
 		if (this.getSpeed() != 0) {
 			this.setSpeed(this.getSpeed() - 3 * Math.signum(this.getSpeed()));
 		}
+		return addedObjects;
 	}
 
 }

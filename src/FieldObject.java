@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,5 +60,5 @@ public abstract class FieldObject
 
 	}
 
-	public abstract void step(double secondDelay, Field field);
+	public abstract ArrayList<FieldObject> step(double secondDelay, Field field);
 }

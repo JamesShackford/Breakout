@@ -19,14 +19,8 @@ public class Game extends Application
 	{
 		ArrayList<FieldObject> fieldElements = new ArrayList<FieldObject>();
 		Bouncer myBouncer = new Bouncer();
-		myBouncer.setImage("ball.gif");
-		myBouncer.setX(100);
-		myBouncer.setY(100);
-		myBouncer.setXSpeed(100);
-		myBouncer.setYSpeed(100);
 
 		Paddle paddle = new Paddle();
-		paddle.setImage("paddle.gif");
 		paddle.setX(100);
 		paddle.setY(300);
 
@@ -49,8 +43,16 @@ public class Game extends Application
 
 	private void step(double SECOND_DELAY)
 	{
+		ArrayList<FieldObject> addedObjects = new ArrayList<FieldObject>();
 		for (FieldObject myElement : field.getFieldElements()) {
-			myElement.step(SECOND_DELAY, field);
+			ArrayList<FieldObject> newAddedObjects = myElement.step(SECOND_DELAY, field);
+			if (newAddedObjects != null && newAddedObjects.size() != 0) {
+				System.out.println("Hi");
+				addedObjects.addAll(newAddedObjects);
+			}
+		}
+		for (FieldObject obj : addedObjects) {
+			field.addElement(obj);
 		}
 	}
 
