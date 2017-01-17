@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author jimmy
  *
  */
-public abstract class PowerUp extends FieldObject
+public abstract class PowerUp extends FieldCartesianObject
 {
 	private boolean destroyed;
 	private double speed;

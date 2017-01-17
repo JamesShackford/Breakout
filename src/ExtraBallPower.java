@@ -22,7 +22,7 @@ public class ExtraBallPower extends PowerUp
 		if (!this.getDestroyed()) {
 			for (FieldObject obj : field.getFieldElements()) {
 				if (obj instanceof Paddle) {
-					if (this.getImage().getBoundsInLocal().intersects(obj.getImage().getBoundsInLocal())) {
+					if (this.getImage().getBoundsInLocal().intersects(obj.getNode().getBoundsInLocal())) {
 						this.setDestroyed(true);
 						return action(field);
 					}

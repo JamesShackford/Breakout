@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 
 /**
  * The Paddle object is able to move around with the arrow keys and can reflect
@@ -10,13 +12,25 @@ import javafx.scene.input.KeyEvent;
  * @author jimmy
  *
  */
-public class Paddle extends FieldObject
+public class Paddle extends FieldPolarObject
 {
 	private double speed;
+	private final Color FILL_COLOR = Color.CORAL;
+	private final Color STROKE_COLOR = Color.CRIMSON;
+	private double centerX;
+	private double centerY;
 
-	public Paddle()
+	private Paddle()
 	{
-		this.setImage("paddle.gif");
+
+	}
+
+	public Paddle(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
+			double centerY)
+	{
+		this.centerX = centerX;
+		this.centerY = centerY;
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILL_COLOR, STROKE_COLOR);
 	}
 
 	/**
@@ -77,15 +91,32 @@ public class Paddle extends FieldObject
 			if (obj instanceof Bouncer) {
 				Bouncer thisBouncer = (Bouncer) obj;
 				// if a bouncer hits the paddle, reflect the ball
-				if (this.getImage().getBoundsInLocal().intersects(thisBouncer.getImage().getBoundsInLocal())) {
+				if (this.intersects(thisBouncer) && thisBouncer.getStarted()) {
+					// if
+					// (this.getNode().getBoundsInLocal().intersects(thisBouncer.getNode().getBoundsInLocal())
+					// && thisBouncer.getStarted()) {
 					// what happens if the ball hits the left/right edge of the
 					// paddle?
-					thisBouncer.setYSpeed(thisBouncer.getYSpeed() * -1);
+					double bouncerRad = PolarUtil.toPolar(thisBouncer.getX() - centerX,
+							thisBouncer.getY() - centerY)[0];
+					double[] normalVector;
+					if (bouncerRad >= this.getInnerRadius() && bouncerRad <= this.getOuterRadius()) {
+						normalVector = PolarUtil.getTangentVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
+								centerY, false);
+						System.out.println("hello");
+					} else {
+						normalVector = PolarUtil.getNormalVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
+								centerY, false);
+					}
+					double[] reflectionVector = PolarUtil.getReflectionVector(thisBouncer.getDirection(), normalVector);
+					thisBouncer.setDirection(reflectionVector);
 				}
 			}
 		}
 		// update the position of the paddle based on its speed
-		this.setX(this.getX() + this.getSpeed() * secondDelay);
+		Path initialPath = this.getSemiRing();
+		this.setSemiRing(this.getInnerRadius(), this.getOuterRadius(), this.getDegreeBegin() + speed * secondDelay,
+				this.getDegreeEnd() + speed * secondDelay, centerX, centerY, FILL_COLOR, STROKE_COLOR);
 		// slow the paddle down until it reaches 0 speed when no keys are being
 		// pressed
 		if (this.getSpeed() != 0) {

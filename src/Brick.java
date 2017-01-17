@@ -6,8 +6,10 @@
  * 3. Destroy: determining what happens when the brick is destroyed
  * 4. Set/Get Destroyed: Set/Get the destroyed property
  */
-public abstract class Brick extends FieldObject
+public abstract class Brick extends FieldPolarObject
 {
+	public static final double BRICK_THICKNESS = 10;
+
 	private boolean destroyed;
 
 	/**
@@ -37,7 +39,7 @@ public abstract class Brick extends FieldObject
 	public PowerUp destroy()
 	{
 		setDestroyed(true);
-		getImage().setImage(null);
+		this.delete();
 		PowerUp power = PowerUpUtil.getPowerUp(getPowerUpProbability());
 		return power;
 	}

@@ -3,14 +3,16 @@ import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class Bouncer extends FieldObject
+public class Bouncer extends FieldCartesianObject
 {
 	private final double xStartPosition = Field.SIZE / 2;
 	private final double yStartPosition = Field.SIZE / 2;
 	public static final double normalSpeed = Field.SIZE / (200 * Game.SECOND_DELAY);
 
-	private double xSpeed;
-	private double ySpeed;
+	private double speed;
+	// x direction is index 0, y direction is index 1
+	// this must be a unit vector
+	private double[] velocityDirection;
 
 	private boolean started;
 
@@ -18,18 +20,18 @@ public class Bouncer extends FieldObject
 	{
 		this.started = false;
 		this.setImage("ball.gif");
-		this.setXSpeed(normalSpeed);
-		this.setYSpeed(-normalSpeed);
+		this.setDirection(new double[] { 1.0, 1.0 });
+		this.setSpeed(normalSpeed);
 	}
 
 	public double getXSpeed()
 	{
-		return xSpeed;
+		return velocityDirection[0] * speed;
 	}
 
 	public double getYSpeed()
 	{
-		return ySpeed;
+		return velocityDirection[1] * speed;
 	}
 
 	/**
@@ -43,26 +45,19 @@ public class Bouncer extends FieldObject
 		return started;
 	}
 
-	/**
-	 * set the x speed of the bouncer
-	 * 
-	 * @param xSpeed
-	 *            x speed
-	 */
-	public void setXSpeed(double xSpeed)
+	public double[] getDirection()
 	{
-		this.xSpeed = xSpeed;
+		return velocityDirection;
 	}
 
-	/**
-	 * set the y speed of the bouncer
-	 * 
-	 * @param ySpeed
-	 *            y speed
-	 */
-	public void setYSpeed(double ySpeed)
+	public void setSpeed(double speed)
 	{
-		this.ySpeed = ySpeed;
+		this.speed = speed;
+	}
+
+	public void setDirection(double[] direction)
+	{
+		this.velocityDirection = PolarUtil.getUnitVector(direction);
 	}
 
 	/**
@@ -82,6 +77,10 @@ public class Bouncer extends FieldObject
 	{
 		// Start the ball when the spacebar is pressed.
 		if (key.getCode().equals(KeyCode.SPACE)) {
+			this.setDirection(
+					PolarUtil.getNormalVector(this.getX(), this.getY(), Field.CENTER_X, Field.CENTER_Y, false));
+			this.setX(this.getX() + 4 * this.getXSpeed() * Game.SECOND_DELAY);
+			this.setY(this.getY() + 4 * this.getYSpeed() * Game.SECOND_DELAY);
 			this.setStarted(true);
 		}
 	}
@@ -90,30 +89,34 @@ public class Bouncer extends FieldObject
 	public ArrayList<FieldObject> step(double secondDelay, Field field)
 	{
 		// If the ball has not started moving yet, the ball will move with the
-		// paddle (it
-		// will remain attached to the top of the paddle
+		// paddle (it will remain attached to the top of the paddle)
 		if (this.getStarted() == false) {
 			for (FieldObject obj : field.getFieldElements()) {
 				if (obj instanceof Paddle) {
-					this.setX(obj.getX() + obj.getImage().getBoundsInLocal().getWidth() / 2);
-					this.setY(obj.getY() - this.getImage().getBoundsInLocal().getHeight());
+					Paddle paddle = (Paddle) obj;
+					double middleDegree = 90 - (paddle.getDegreeBegin() + paddle.getDegreeEnd()) / 2;
+					double[] cartesianCoords = PolarUtil.toCartesian(paddle.getOuterRadius() + this.getRadius(),
+							middleDegree);
+					this.setX(Field.CENTER_X + cartesianCoords[0]);
+					this.setY(Field.CENTER_Y - cartesianCoords[1]);
 				}
 			}
+		} else {
+			// update the position of the bouncer based on its speed
+			this.setX(this.getX() + this.getXSpeed() * secondDelay);
+			this.setY(this.getY() + this.getYSpeed() * secondDelay);
 		}
-		// update the position of the bouncer based on its speed
-		this.getImage().setX(getX() + xSpeed * secondDelay);
-		this.getImage().setY(getY() + ySpeed * secondDelay);
 
 		// if the ball hits the left or right borders of the field, the ball
 		// will reflect off of it
-		if (getX() <= 0 || getX() + this.getImage().getBoundsInLocal().getHeight() >= field.getScene().getHeight()) {
-			setXSpeed(xSpeed * -1);
+		if (getX() - this.getRadius() <= 0 || getX() + this.getRadius() >= field.getScene().getHeight()) {
+			this.setDirection(new double[] { -1 * this.getDirection()[0], this.getDirection()[1] });
 		}
 
 		// if the ball hits the top or bottom borders of the field, the ball
 		// will reflect off of it
-		if (getY() <= 0 || getY() + this.getImage().getBoundsInLocal().getWidth() >= field.getScene().getWidth()) {
-			setYSpeed(ySpeed * -1);
+		if (getY() - this.getRadius() <= 0 || getY() + this.getRadius() >= field.getScene().getWidth()) {
+			this.setDirection(new double[] { this.getDirection()[0], -1 * this.getDirection()[1] });
 		}
 		return null;
 	}

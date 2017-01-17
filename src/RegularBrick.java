@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * A regular brick can only be hit once before it is destroyed. It has a low
@@ -15,14 +14,11 @@ public class RegularBrick extends Brick
 
 	private final double POWER_UP_PROBABILITY = 1.0;
 
-	RegularBrick()
+	RegularBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
+			double centerY)
 	{
-		Image im = new Image(getClass().getClassLoader().getResourceAsStream("brick3.gif"));
-		ImageView view = new ImageView(im);
-		view.setPreserveRatio(true);
-		view.setFitHeight(15);
-		setImage(view);
-
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.ROSYBROWN,
+				Color.SADDLEBROWN);
 	}
 
 	@Override
@@ -36,8 +32,10 @@ public class RegularBrick extends Brick
 			if (currElem instanceof Bouncer) {
 				PowerUp power = bouncerHit((Bouncer) currElem);
 				if (power != null) {
-					power.setX(this.getX() + (this.getImage().getBoundsInLocal().getWidth() / 2));
-					power.setY(this.getY() + (this.getImage().getBoundsInLocal().getHeight() / 2));
+					double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
+					double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree);
+					power.setX(cartesianCoords[0]);
+					power.setY(cartesianCoords[1]);
 					power.setSpeed(100);
 					newObjects.add(power);
 				}
@@ -49,27 +47,45 @@ public class RegularBrick extends Brick
 	@Override
 	public PowerUp bouncerHit(Bouncer bouncer)
 	{
-
-		if (!getDestroyed() && bouncer.getImage().getBoundsInLocal().intersects(this.getImage().getBoundsInLocal())) {
+		if (this.intersects(bouncer) && !getDestroyed()) {
+			// if (!getDestroyed() &&
+			// bouncer.getImage().getBoundsInParent().intersects(this.getNode().getBoundsInParent()))
+			// {
 			double bouncerXRadius = bouncer.getImage().getBoundsInLocal().getWidth() / 2;
 			/*
 			 * If a bouncer is hitting the right/left edges of the brick, then
 			 * reflect the bouncer along that edge
 			 */
-			if (bouncer.getX() + bouncerXRadius >= this.getX() + this.getImage().getBoundsInLocal().getWidth()
-					|| bouncer.getX() + bouncerXRadius <= this.getX()) {
-				bouncer.setXSpeed(bouncer.getXSpeed() * -1);
-				bouncer.setX(bouncer.getX() + Math.signum(bouncer.getXSpeed()));
+			double[] polarCoords = PolarUtil.toPolar(bouncer.getX(), bouncer.getY());
+
+			double[] normalVector;
+			if (this.hitCurve(bouncer.getX(), bouncer.getY(), bouncer.getRadius())) {
+				normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X, Field.CENTER_Y,
+						false);
+			} else {
+				normalVector = PolarUtil.getTangentVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X,
+						Field.CENTER_Y, false);
+				System.out.println("hello");
 			}
-			/*
-			 * If the bouncer is hitting the top/bottom edges of the brick, then
-			 * reflect the bouncer off that edge.
-			 */
-			else {
-				bouncer.setYSpeed(bouncer.getYSpeed() * -1);
-				// update position so can't hit 2 bricks at once
-				bouncer.setY(bouncer.getY() + Math.signum(bouncer.getYSpeed()));
-			}
+			double[] reflectionVector = PolarUtil.getReflectionVector(bouncer.getDirection(), normalVector);
+			bouncer.setDirection(reflectionVector);
+			// if (polarCoords[1] <= this.getDegreeBegin() || polarCoords[1] >=
+			// this.getDegreeBegin()) {
+			// bouncer.setDirection(new double[] { bouncer.getDirection()[0] *
+			// -1, bouncer.getDirection()[1] });
+			// bouncer.setX(bouncer.getX() + Math.signum(bouncer.getXSpeed()));
+			// }
+			// /*
+			// * If the bouncer is hitting the top/bottom edges of the brick,
+			// then
+			// * reflect the bouncer off that edge.
+			// */
+			// else {
+			// bouncer.setDirection(new double[] { bouncer.getDirection()[0],
+			// bouncer.getDirection()[1] * -1 });
+			// // update position so can't hit 2 bricks at once
+			// bouncer.setY(bouncer.getY() + Math.signum(bouncer.getYSpeed()));
+			// }
 			// destroy this brick and return a PowerUp if one was produced
 			return this.destroy();
 		}

@@ -18,6 +18,8 @@ public class Field
 {
 	public static final String TITLE = "Game";
 	public static final int SIZE = 400;
+	public static final int CENTER_X = SIZE / 2;
+	public static final int CENTER_Y = SIZE / 2;
 	public static final Paint BACKGROUND = Color.BLACK;
 	public static final int KEY_INPUT_SPEED = 5;
 
@@ -58,6 +60,7 @@ public class Field
 	{
 		root = new Group();
 		myScene = new Scene(root, width, height, background);
+
 		// Add the FieldObjects to the stage and give them key/mouse listeners
 		for (FieldObject element : fieldElements) {
 			root.getChildren().add(element.getNode());
@@ -83,6 +86,14 @@ public class Field
 			myScene.addEventFilter(KeyEvent.KEY_PRESSED, e -> element.onKeyPressed(e));
 			myScene.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> element.onMouseClicked(e.getX(), e.getY()));
 			fieldElements.add(element);
+		}
+	}
+
+	public void refreshImages()
+	{
+		root.getChildren().clear();
+		for (FieldObject elem : fieldElements) {
+			root.getChildren().add(elem.getNode());
 		}
 	}
 

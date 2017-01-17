@@ -20,16 +20,22 @@ public class Game extends Application
 		ArrayList<FieldObject> fieldElements = new ArrayList<FieldObject>();
 		Bouncer myBouncer = new Bouncer();
 
-		Paddle paddle = new Paddle();
-		paddle.setX(100);
-		paddle.setY(300);
+		Paddle paddle = new Paddle(50.0f, 55.0f, 0.0f, 40.0f, 200.0f, 200.0f);
 
-		for (int i = 0; i < 10; i++) {
-			RegularBrick brick = new RegularBrick();
-			brick.setX(i * brick.getImage().getBoundsInLocal().getWidth());
-			brick.setY(50);
-			fieldElements.add(brick);
-		}
+		// for (int i = 0; i < 10; i++) {
+		// RegularBrick brick = new RegularBrick(75.0f, 95.0f, 0.0f, 20.0f,
+		// 0.0f, 0.0f);
+		// fieldElements.add(brick);
+		// }
+
+		String[] layer1 = { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+				"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" };
+		// String[] layer1 = { "1", "1", "1", "1" };
+		ArrayList<String[]> brickLayout = new ArrayList<String[]>();
+		brickLayout.add(layer1);
+		ArrayList<Brick> addedBricks = StageBuilder.buildBricks(100, brickLayout);
+		fieldElements.addAll(addedBricks);
+
 		fieldElements.add(myBouncer);
 		fieldElements.add(paddle);
 		field = new Field(stage, fieldElements);
@@ -54,6 +60,7 @@ public class Game extends Application
 		for (FieldObject obj : addedObjects) {
 			field.addElement(obj);
 		}
+		field.refreshImages();
 	}
 
 	public static void main(String[] args)
