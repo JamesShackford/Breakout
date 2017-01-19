@@ -1,3 +1,5 @@
+package game;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.FillRule;
@@ -108,6 +110,7 @@ public class PolarUtil
 		double[] reflectionVector = new double[2];
 		// negative direction is up
 		incidentVector[1] = -1 * incidentVector[1];
+		normalVector[1] = -1 * normalVector[1];
 		reflectionVector[0] = incidentVector[0] - 2 * dotProduct(incidentVector, normalVector) * normalVector[0];
 		reflectionVector[1] = incidentVector[1] - 2 * dotProduct(incidentVector, normalVector) * normalVector[1];
 		// negative direction is up
@@ -119,7 +122,7 @@ public class PolarUtil
 	{
 		double[] normalVector = new double[2];
 		normalVector[0] = x - centerX;
-		normalVector[1] = centerY - y;
+		normalVector[1] = y - centerY;
 		if (towardsCenter) {
 			normalVector[0] *= -1;
 			normalVector[1] *= -1;

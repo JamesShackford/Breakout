@@ -1,3 +1,4 @@
+package game;
 import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
@@ -19,7 +20,7 @@ public class Game extends Application
 	{
 		ArrayList<FieldObject> fieldElements = new ArrayList<FieldObject>();
 		Bouncer myBouncer = new Bouncer();
-
+		Planet planet = new Planet();
 		Paddle paddle = new Paddle(50.0f, 55.0f, 0.0f, 40.0f, 200.0f, 200.0f);
 
 		// for (int i = 0; i < 10; i++) {
@@ -28,8 +29,13 @@ public class Game extends Application
 		// fieldElements.add(brick);
 		// }
 
+		double[] incidentVector = new double[] { 0, 1 };
+		double[] normalVector = PolarUtil.getUnitVector(new double[] { 1, 1 });
+		double[] reflectedVector = PolarUtil.getReflectionVector(incidentVector, normalVector);
+		System.out.println(reflectedVector[0] + ", " + reflectedVector[1]);
+
 		String[] layer1 = { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-				"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" };
+				"1", "1", "1", "1", "1", "1" };
 		// String[] layer1 = { "1", "1", "1", "1" };
 		ArrayList<String[]> brickLayout = new ArrayList<String[]>();
 		brickLayout.add(layer1);
@@ -38,6 +44,7 @@ public class Game extends Application
 
 		fieldElements.add(myBouncer);
 		fieldElements.add(paddle);
+		fieldElements.add(planet);
 		field = new Field(stage, fieldElements);
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));

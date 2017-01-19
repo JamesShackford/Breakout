@@ -1,3 +1,4 @@
+package game;
 /*
  * Class which abstractly defines what a brick is. A brick must have methods for:
  * 1. bouncerHit: determining what happens when a bouncer hits it
@@ -8,7 +9,7 @@
  */
 public abstract class Brick extends FieldPolarObject
 {
-	public static final double BRICK_THICKNESS = 10;
+	public static final double BRICK_THICKNESS = 20;
 
 	private boolean destroyed;
 

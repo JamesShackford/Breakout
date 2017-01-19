@@ -1,3 +1,4 @@
+package game;
 import java.util.ArrayList;
 
 import javafx.scene.input.KeyCode;
@@ -19,11 +20,6 @@ public class Paddle extends FieldPolarObject
 	private final Color STROKE_COLOR = Color.CRIMSON;
 	private double centerX;
 	private double centerY;
-
-	private Paddle()
-	{
-
-	}
 
 	public Paddle(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)

@@ -1,3 +1,4 @@
+package game;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,7 @@ public abstract class PowerUp extends FieldCartesianObject
 {
 	private boolean destroyed;
 	private double speed;
+	private double[] velocityDirection;
 
 	/**
 	 * The action that is performed when the PowerUp touches the paddle.
@@ -36,6 +38,37 @@ public abstract class PowerUp extends FieldCartesianObject
 		this.destroyed = destroyed;
 	}
 
+	@Override
+	public ArrayList<FieldObject> step(double secondDelay, Field field)
+	{
+		// If the power up hasn't already been destroyed (activated), then check
+		// if it is touching the paddle and if it
+		// is, then destroy the power up and return an ArrayList which contains
+		// the new bouncer to add to the field.
+		if (!this.getDestroyed()) {
+			for (FieldObject obj : field.getFieldElements()) {
+				if (obj instanceof Paddle) {
+					if (this.getImage().getBoundsInLocal().intersects(obj.getNode().getBoundsInLocal())) {
+						this.setDestroyed(true);
+						return action(field);
+					}
+				}
+				if (obj instanceof Planet) {
+					double radialDistance = PolarUtil.toPolar(this.getX() - Field.CENTER_X,
+							this.getY() - Field.CENTER_Y)[0];
+					if (radialDistance <= ((Planet) obj).getRadius()) {
+						this.setDestroyed(true);
+						return null;
+					}
+				}
+			}
+			// update the position of the power up based on its velocity
+			this.setX(this.getX() + this.getSpeed() * this.getDirection()[0] * secondDelay);
+			this.setY(this.getY() + this.getSpeed() * this.getDirection()[1] * secondDelay);
+		}
+		return null;
+	}
+
 	/**
 	 * Set the velocity of the PowerUp
 	 * 
@@ -45,6 +78,11 @@ public abstract class PowerUp extends FieldCartesianObject
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
+	}
+
+	public void setDirection(double[] direction)
+	{
+		this.velocityDirection = PolarUtil.getUnitVector(direction);
 	}
 
 	/**
@@ -65,5 +103,10 @@ public abstract class PowerUp extends FieldCartesianObject
 	public double getSpeed()
 	{
 		return speed;
+	}
+
+	public double[] getDirection()
+	{
+		return this.velocityDirection;
 	}
 }

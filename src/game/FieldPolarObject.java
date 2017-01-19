@@ -1,3 +1,4 @@
+package game;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -63,11 +64,6 @@ public abstract class FieldPolarObject implements FieldObject
 		double[] middlePolarCoords = PolarUtil.toPolar(obj.getX() - Field.CENTER_X, obj.getY() - Field.CENTER_Y);
 		double distMiddleToOrigin = middlePolarCoords[0];
 		double angleMiddleFromOrigin = middlePolarCoords[1];
-		if (this.getOuterRadius() == 55.0) {
-			System.out.println(distMiddleToOrigin - obj.getRadius() + " < " + this.getOuterRadius());
-			System.out.println(distMiddleToOrigin + obj.getRadius() + " > " + this.getInnerRadius());
-			System.out.println(angleMiddleFromOrigin + ">=" + this.getDegreeBegin());
-		}
 
 		// boolean middleHitCurve = distMiddleToOrigin + obj.getRadius() >=
 		// this.getInnerRadius()
@@ -129,10 +125,6 @@ public abstract class FieldPolarObject implements FieldObject
 	{
 		// remove path
 		semiRing = new Path();
-		innerRadius = 0;
-		outerRadius = 0;
-		degreeBegin = 0;
-		degreeEnd = 0;
 	}
 
 	@Override

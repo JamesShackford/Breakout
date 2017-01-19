@@ -1,3 +1,4 @@
+package game;
 import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
@@ -33,10 +34,14 @@ public class RegularBrick extends Brick
 				PowerUp power = bouncerHit((Bouncer) currElem);
 				if (power != null) {
 					double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
-					double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree);
-					power.setX(cartesianCoords[0]);
-					power.setY(cartesianCoords[1]);
-					power.setSpeed(100);
+					double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
+					System.out.println(this.getInnerRadius() + ", " + middleDegree + "-->" + cartesianCoords[0] + ","
+							+ cartesianCoords[1]);
+					power.setX(cartesianCoords[0] + Field.CENTER_X);
+					power.setY(cartesianCoords[1] + Field.CENTER_Y);
+					power.setSpeed(20);
+					power.setDirection(PolarUtil.getNormalVector(power.getX(), power.getY(), Field.CENTER_X,
+							Field.CENTER_Y, true));
 					newObjects.add(power);
 				}
 			}
@@ -59,14 +64,19 @@ public class RegularBrick extends Brick
 			double[] polarCoords = PolarUtil.toPolar(bouncer.getX(), bouncer.getY());
 
 			double[] normalVector;
-			if (this.hitCurve(bouncer.getX(), bouncer.getY(), bouncer.getRadius())) {
-				normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X, Field.CENTER_Y,
-						false);
-			} else {
-				normalVector = PolarUtil.getTangentVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X,
-						Field.CENTER_Y, false);
-				System.out.println("hello");
-			}
+			normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X, Field.CENTER_Y,
+					false);
+			// if (this.hitCurve(bouncer.getX(), bouncer.getY(),
+			// bouncer.getRadius())) {
+			// normalVector = PolarUtil.getNormalVector(bouncer.getX(),
+			// bouncer.getY(), Field.CENTER_X, Field.CENTER_Y,
+			// false);
+			// } else {
+			// normalVector = PolarUtil.getTangentVector(bouncer.getX(),
+			// bouncer.getY(), Field.CENTER_X,
+			// Field.CENTER_Y, false);
+			// System.out.println("hello");
+			// }
 			double[] reflectionVector = PolarUtil.getReflectionVector(bouncer.getDirection(), normalVector);
 			bouncer.setDirection(reflectionVector);
 			// if (polarCoords[1] <= this.getDegreeBegin() || polarCoords[1] >=

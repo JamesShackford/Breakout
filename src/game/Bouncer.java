@@ -1,5 +1,7 @@
+package game;
 import java.util.ArrayList;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -76,7 +78,7 @@ public class Bouncer extends FieldCartesianObject
 	public void onKeyPressed(KeyEvent key)
 	{
 		// Start the ball when the spacebar is pressed.
-		if (key.getCode().equals(KeyCode.SPACE)) {
+		if (key.getCode().equals(KeyCode.SPACE) && !this.getStarted()) {
 			this.setDirection(
 					PolarUtil.getNormalVector(this.getX(), this.getY(), Field.CENTER_X, Field.CENTER_Y, false));
 			this.setX(this.getX() + 4 * this.getXSpeed() * Game.SECOND_DELAY);
@@ -118,6 +120,14 @@ public class Bouncer extends FieldCartesianObject
 		if (getY() - this.getRadius() <= 0 || getY() + this.getRadius() >= field.getScene().getWidth()) {
 			this.setDirection(new double[] { this.getDirection()[0], -1 * this.getDirection()[1] });
 		}
+
+		double radialDistance = PolarUtil.toPolar(this.getX() - Field.CENTER_X, this.getY() - Field.CENTER_Y)[0];
+		for (FieldObject elem : field.getFieldElements()) {
+			if (elem instanceof Planet && radialDistance <= ((Planet) elem).getRadius()) {
+				this.setImage(new ImageView());
+			}
+		}
+
 		return null;
 	}
 
