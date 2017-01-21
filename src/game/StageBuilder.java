@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 
 public class StageBuilder
@@ -14,6 +15,18 @@ public class StageBuilder
 				Brick addedBrick = null;
 				if (currBrick.equals("1")) {
 					addedBrick = new RegularBrick(currRadius, currRadius + Brick.BRICK_THICKNESS, currAngle,
+							currAngle + angleIncrement, Field.CENTER_X, Field.CENTER_Y);
+				} else if (currBrick.equals("2")) {
+					addedBrick = new TwoHitBrick(currRadius, currRadius + Brick.BRICK_THICKNESS, currAngle,
+							currAngle + angleIncrement, Field.CENTER_X, Field.CENTER_Y);
+				} else if (currBrick.equals("3")) {
+					addedBrick = new ThreeHitBrick(currRadius, currRadius + Brick.BRICK_THICKNESS, currAngle,
+							currAngle + angleIncrement, Field.CENTER_X, Field.CENTER_Y);
+				} else if (currBrick.equals("U")) {
+					addedBrick = new UnbreakableBrick(currRadius, currRadius + Brick.BRICK_THICKNESS, currAngle,
+							currAngle + angleIncrement, Field.CENTER_X, Field.CENTER_Y);
+				} else if (currBrick.equals("I")) {
+					addedBrick = new IceBrick(currRadius, currRadius + Brick.BRICK_THICKNESS, currAngle,
 							currAngle + angleIncrement, Field.CENTER_X, Field.CENTER_Y);
 				}
 				currAngle += angleIncrement;

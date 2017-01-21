@@ -1,4 +1,7 @@
 package game;
+
+import java.util.ArrayList;
+
 /*
  * Class which abstractly defines what a brick is. A brick must have methods for:
  * 1. bouncerHit: determining what happens when a bouncer hits it
@@ -12,6 +15,48 @@ public abstract class Brick extends FieldPolarObject
 	public static final double BRICK_THICKNESS = 20;
 
 	private boolean destroyed;
+
+	@Override
+	public ArrayList<FieldObject> step(double secondDelay, Field field)
+	{
+		ArrayList<FieldObject> objects = field.getFieldElements();
+		ArrayList<FieldObject> newObjects = new ArrayList<FieldObject>();
+		// check if a bouncer is hitting this brick, and if it is, then destroy
+		// the block and possibly create a PowerUp
+		for (FieldObject currElem : objects) {
+			if (currElem instanceof Bouncer) {
+				PowerUp power = bouncerHit((Bouncer) currElem);
+				if (power != null) {
+					double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
+					double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
+					System.out.println(this.getInnerRadius() + ", " + middleDegree + "-->" + cartesianCoords[0] + ","
+							+ cartesianCoords[1]);
+					power.setX(cartesianCoords[0] + Field.CENTER_X);
+					power.setY(cartesianCoords[1] + Field.CENTER_Y);
+					power.setSpeed(20);
+					power.setDirection(PolarUtil.getNormalVector(power.getX(), power.getY(), Field.CENTER_X,
+							Field.CENTER_Y, true));
+					newObjects.add(power);
+				}
+			}
+		}
+		return newObjects;
+	}
+
+	public void reflectBouncer(Bouncer bouncer)
+	{
+		double bouncerXRadius = bouncer.getImage().getBoundsInLocal().getWidth() / 2;
+		/*
+		 * If a bouncer is hitting the right/left edges of the brick, then
+		 * reflect the bouncer along that edge
+		 */
+		double[] polarCoords = PolarUtil.toPolar(bouncer.getX(), bouncer.getY());
+
+		double[] normalVector;
+		normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X, Field.CENTER_Y, false);
+		double[] reflectionVector = PolarUtil.getReflectionVector(bouncer.getDirection(), normalVector);
+		bouncer.setDirection(reflectionVector);
+	}
 
 	/**
 	 * Determines whether a bouncer has hit this brick and returns the PowerUp

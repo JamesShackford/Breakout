@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
@@ -34,8 +35,10 @@ public class Game extends Application
 		double[] reflectedVector = PolarUtil.getReflectionVector(incidentVector, normalVector);
 		System.out.println(reflectedVector[0] + ", " + reflectedVector[1]);
 
-		String[] layer1 = { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-				"1", "1", "1", "1", "1", "1" };
+		// String[] layer1 = { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+		// "1", "1", "1", "1", "1", "1", "1", "1",
+		// "1", "1", "1", "1", "1", "1" };
+		String[] layer1 = { "I", "I", "I", "I" };
 		// String[] layer1 = { "1", "1", "1", "1" };
 		ArrayList<String[]> brickLayout = new ArrayList<String[]>();
 		brickLayout.add(layer1);
