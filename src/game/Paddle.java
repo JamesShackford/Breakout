@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 
 import javafx.scene.input.KeyCode;
@@ -18,8 +19,11 @@ public class Paddle extends FieldPolarObject
 	private double speed;
 	private final Color FILL_COLOR = Color.CORAL;
 	private final Color STROKE_COLOR = Color.CRIMSON;
+	private final double INCREASE_AMOUNT = 30; // degrees
 	private double centerX;
 	private double centerY;
+	private boolean sticky;
+	private boolean increasedSize;
 
 	public Paddle(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
@@ -27,6 +31,8 @@ public class Paddle extends FieldPolarObject
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILL_COLOR, STROKE_COLOR);
+		this.sticky = false;
+		this.increasedSize = false;
 	}
 
 	/**
@@ -39,6 +45,16 @@ public class Paddle extends FieldPolarObject
 		return speed;
 	}
 
+	public boolean getIncreasedSize()
+	{
+		return increasedSize;
+	}
+
+	public boolean getSticky()
+	{
+		return sticky;
+	}
+
 	/**
 	 * Set the speed of the paddle
 	 * 
@@ -48,6 +64,25 @@ public class Paddle extends FieldPolarObject
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
+	}
+
+	public void setIncreasedSize(boolean increasedSize)
+	{
+		this.increasedSize = increasedSize;
+	}
+
+	public void setSticky(boolean sticky)
+	{
+		this.sticky = sticky;
+	}
+
+	public void increaseSize()
+	{
+		if (!this.getIncreasedSize()) {
+			this.setSemiRing(this.getInnerRadius(), this.getOuterRadius(), this.getDegreeBegin() - INCREASE_AMOUNT / 2,
+					this.getDegreeEnd() + INCREASE_AMOUNT / 2, centerX, centerY, FILL_COLOR, STROKE_COLOR);
+		}
+		this.setIncreasedSize(true);
 	}
 
 	@Override
@@ -87,12 +122,12 @@ public class Paddle extends FieldPolarObject
 			if (obj instanceof Bouncer) {
 				Bouncer thisBouncer = (Bouncer) obj;
 				// if a bouncer hits the paddle, reflect the ball
-				if (this.intersects(thisBouncer) && thisBouncer.getStarted()) {
-					// if
-					// (this.getNode().getBoundsInLocal().intersects(thisBouncer.getNode().getBoundsInLocal())
-					// && thisBouncer.getStarted()) {
+				if (this.intersects(thisBouncer) && !thisBouncer.getStickingToPaddle()) {
 					// what happens if the ball hits the left/right edge of the
 					// paddle?
+					if (this.getSticky()) {
+						thisBouncer.setStickingToPaddle(true);
+					}
 					double bouncerRad = PolarUtil.toPolar(thisBouncer.getX() - centerX,
 							thisBouncer.getY() - centerY)[0];
 					double[] normalVector;

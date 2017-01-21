@@ -1,4 +1,5 @@
 package game;
+
 import java.util.ArrayList;
 
 import javafx.scene.image.ImageView;
@@ -16,12 +17,12 @@ public class Bouncer extends FieldCartesianObject
 	// this must be a unit vector
 	private double[] velocityDirection;
 
-	private boolean started;
+	private boolean stickingToPaddle;
 
 	public Bouncer()
 	{
-		this.started = false;
-		this.setImage("ball.gif");
+		this.stickingToPaddle = true;
+		this.setImage("fireball.gif");
 		this.setDirection(new double[] { 1.0, 1.0 });
 		this.setSpeed(normalSpeed);
 	}
@@ -42,9 +43,9 @@ public class Bouncer extends FieldCartesianObject
 	 * 
 	 * @return true if bouncer is moving, false if bouncer is stuck to paddle
 	 */
-	public boolean getStarted()
+	public boolean getStickingToPaddle()
 	{
-		return started;
+		return stickingToPaddle;
 	}
 
 	public double[] getDirection()
@@ -69,22 +70,30 @@ public class Bouncer extends FieldCartesianObject
 	 *            true-> ball can move, false->ball can't move and is instead
 	 *            attached to the paddle
 	 */
-	public void setStarted(boolean started)
+	public void setStickingToPaddle(boolean stickingToPaddle)
 	{
-		this.started = started;
+		this.stickingToPaddle = stickingToPaddle;
 	}
 
 	@Override
 	public void onKeyPressed(KeyEvent key)
 	{
 		// Start the ball when the spacebar is pressed.
-		if (key.getCode().equals(KeyCode.SPACE) && !this.getStarted()) {
+		if (key.getCode().equals(KeyCode.SPACE) && this.getStickingToPaddle()) {
 			this.setDirection(
 					PolarUtil.getNormalVector(this.getX(), this.getY(), Field.CENTER_X, Field.CENTER_Y, false));
 			this.setX(this.getX() + 4 * this.getXSpeed() * Game.SECOND_DELAY);
 			this.setY(this.getY() + 4 * this.getYSpeed() * Game.SECOND_DELAY);
-			this.setStarted(true);
+			this.setStickingToPaddle(false);
 		}
+	}
+
+	public void stickToPaddle(Paddle paddle)
+	{
+		double middleDegree = 90 - (paddle.getDegreeBegin() + paddle.getDegreeEnd()) / 2;
+		double[] cartesianCoords = PolarUtil.toCartesian(paddle.getOuterRadius() + this.getRadius(), middleDegree);
+		this.setX(Field.CENTER_X + cartesianCoords[0]);
+		this.setY(Field.CENTER_Y - cartesianCoords[1]);
 	}
 
 	@Override
@@ -92,15 +101,10 @@ public class Bouncer extends FieldCartesianObject
 	{
 		// If the ball has not started moving yet, the ball will move with the
 		// paddle (it will remain attached to the top of the paddle)
-		if (this.getStarted() == false) {
+		if (this.getStickingToPaddle()) {
 			for (FieldObject obj : field.getFieldElements()) {
 				if (obj instanceof Paddle) {
-					Paddle paddle = (Paddle) obj;
-					double middleDegree = 90 - (paddle.getDegreeBegin() + paddle.getDegreeEnd()) / 2;
-					double[] cartesianCoords = PolarUtil.toCartesian(paddle.getOuterRadius() + this.getRadius(),
-							middleDegree);
-					this.setX(Field.CENTER_X + cartesianCoords[0]);
-					this.setY(Field.CENTER_Y - cartesianCoords[1]);
+					stickToPaddle((Paddle) obj);
 				}
 			}
 		} else {

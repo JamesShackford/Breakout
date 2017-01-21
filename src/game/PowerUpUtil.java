@@ -1,4 +1,5 @@
 package game;
+
 import java.util.Random;
 
 /**
@@ -17,6 +18,14 @@ public class PowerUpUtil
 		double currVal = getPowerUpProbability * ExtraBallPower.PROBABILITY;
 		if (randDouble < currVal) {
 			return new ExtraBallPower();
+		}
+		currVal += getPowerUpProbability * StickyPaddlePowerUp.PROBABILITY;
+		if (randDouble < currVal) {
+			return new StickyPaddlePowerUp();
+		}
+		currVal += getPowerUpProbability * SizePowerUp.PROBABILITY;
+		if (randDouble < currVal) {
+			return new SizePowerUp();
 		}
 		return null;
 	}

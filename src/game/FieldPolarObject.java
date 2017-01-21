@@ -1,4 +1,5 @@
 package game;
+
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -64,35 +65,6 @@ public abstract class FieldPolarObject implements FieldObject
 		double[] middlePolarCoords = PolarUtil.toPolar(obj.getX() - Field.CENTER_X, obj.getY() - Field.CENTER_Y);
 		double distMiddleToOrigin = middlePolarCoords[0];
 		double angleMiddleFromOrigin = middlePolarCoords[1];
-
-		// boolean middleHitCurve = distMiddleToOrigin + obj.getRadius() >=
-		// this.getInnerRadius()
-		// && distMiddleToOrigin - obj.getRadius() <= this.getOuterRadius()
-		// && angleMiddleFromOrigin >= this.getDegreeBegin() &&
-		// angleMiddleFromOrigin <= this.getDegreeEnd();
-		// double[] topLeftPolarCoords = PolarUtil.toPolar(obj.getX() -
-		// obj.getRadius() - Field.CENTER_X,
-		// obj.getY() - obj.getRadius() - Field.CENTER_Y);
-		// double distTopLeftToOrigin = topLeftPolarCoords[0];
-		// double angleTopLeftFromOrigin = topLeftPolarCoords[1];
-		// boolean topLeftHitSide = distTopLeftToOrigin >= this.getInnerRadius()
-		// && distTopLeftToOrigin <= this.getOuterRadius() &&
-		// angleTopLeftFromOrigin >= this.getDegreeBegin()
-		// && angleTopLeftFromOrigin <= this.getDegreeEnd();
-		// double[] bottomRightPolarCoords = PolarUtil.toPolar(obj.getX() +
-		// obj.getRadius() - Field.CENTER_X,
-		// obj.getY() + obj.getRadius() - Field.CENTER_Y);
-		// double distBottomRightToOrigin = bottomRightPolarCoords[0];
-		// double angleBottomRightFromOrigin = bottomRightPolarCoords[1];
-		// boolean bottomRightHitSide = distBottomRightToOrigin >=
-		// this.getInnerRadius()
-		// && distBottomRightToOrigin <= this.getOuterRadius()
-		// && angleBottomRightFromOrigin >= this.getDegreeBegin()
-		// && angleBottomRightFromOrigin <= this.getDegreeEnd();
-		// if (middleHitCurve || topLeftHitSide || bottomRightHitSide) {
-		// return true;
-		// }
-		// return false;
 
 		boolean hitCurve = hitCurve(obj.getX(), obj.getY(), obj.getRadius());
 		boolean topLeftHitSide = hitSide(obj.getX() - obj.getRadius(), obj.getY() - obj.getRadius());
