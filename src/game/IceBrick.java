@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 
 public class IceBrick extends Brick
 {
+	private final double POWER_UP_PROBABILITY = 1.20;
+	private final boolean REQUIRED_TO_END = false;
+
 	IceBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
@@ -15,7 +18,11 @@ public class IceBrick extends Brick
 	public PowerUp bouncerHit(Bouncer bouncer)
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
-			this.reflectBouncer(bouncer);
+			if (bouncer.isFireball()) {
+				return this.destroy();
+			} else {
+				this.reflectBouncer(bouncer);
+			}
 		}
 		return null;
 	}
@@ -25,4 +32,11 @@ public class IceBrick extends Brick
 	{
 		return 0;
 	}
+
+	@Override
+	public boolean requiredToEnd()
+	{
+		return REQUIRED_TO_END;
+	}
+
 }

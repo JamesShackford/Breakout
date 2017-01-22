@@ -18,13 +18,16 @@ public class Bouncer extends FieldCartesianObject
 	private double[] velocityDirection;
 
 	private boolean stickingToPaddle;
+	private boolean isFireball;
+	private boolean isDead;
 
 	public Bouncer()
 	{
 		this.stickingToPaddle = true;
-		this.setImage("fireball.gif");
+		this.setImage("ball.gif");
 		this.setDirection(new double[] { 1.0, 1.0 });
 		this.setSpeed(normalSpeed);
+
 	}
 
 	public double getXSpeed()
@@ -53,6 +56,16 @@ public class Bouncer extends FieldCartesianObject
 		return velocityDirection;
 	}
 
+	public boolean isDead()
+	{
+		return isDead;
+	}
+
+	public boolean isFireball()
+	{
+		return isFireball;
+	}
+
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
@@ -61,6 +74,24 @@ public class Bouncer extends FieldCartesianObject
 	public void setDirection(double[] direction)
 	{
 		this.velocityDirection = PolarUtil.getUnitVector(direction);
+	}
+
+	public void setDead(boolean isDead)
+	{
+		this.isDead = isDead;
+	}
+
+	public void setFireball(boolean isFireball)
+	{
+		this.isFireball = isFireball;
+		double currX = this.getImage().getX();
+		double currY = this.getImage().getY();
+		this.setImage("fireball.gif");
+		this.getImage().setX(currX);
+		this.getImage().setY(currY);
+		double speed = Math.sqrt(Math.pow(this.getXSpeed(), 2) + Math.pow(this.getYSpeed(), 2));
+		this.setSpeed(speed * 2);
+
 	}
 
 	/**
@@ -129,7 +160,12 @@ public class Bouncer extends FieldCartesianObject
 		for (FieldObject elem : field.getFieldElements()) {
 			if (elem instanceof Planet && radialDistance <= ((Planet) elem).getRadius()) {
 				this.setImage(new ImageView());
+				this.setDead(true);
 			}
+		}
+
+		if (isDead()) {
+			this.setImage(new ImageView());
 		}
 
 		return null;

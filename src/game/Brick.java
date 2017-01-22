@@ -25,18 +25,20 @@ public abstract class Brick extends FieldPolarObject
 		// the block and possibly create a PowerUp
 		for (FieldObject currElem : objects) {
 			if (currElem instanceof Bouncer) {
-				PowerUp power = bouncerHit((Bouncer) currElem);
-				if (power != null) {
-					double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
-					double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
-					System.out.println(this.getInnerRadius() + ", " + middleDegree + "-->" + cartesianCoords[0] + ","
-							+ cartesianCoords[1]);
-					power.setX(cartesianCoords[0] + Field.CENTER_X);
-					power.setY(cartesianCoords[1] + Field.CENTER_Y);
-					power.setSpeed(20);
-					power.setDirection(PolarUtil.getNormalVector(power.getX(), power.getY(), Field.CENTER_X,
-							Field.CENTER_Y, true));
-					newObjects.add(power);
+				if (!((Bouncer) currElem).isDead()) {
+					PowerUp power = bouncerHit((Bouncer) currElem);
+					if (power != null) {
+						double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
+						double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
+						System.out.println(this.getInnerRadius() + ", " + middleDegree + "-->" + cartesianCoords[0]
+								+ "," + cartesianCoords[1]);
+						power.setX(cartesianCoords[0] + Field.CENTER_X);
+						power.setY(cartesianCoords[1] + Field.CENTER_Y);
+						power.setSpeed(20);
+						power.setDirection(PolarUtil.getNormalVector(power.getX(), power.getY(), Field.CENTER_X,
+								Field.CENTER_Y, true));
+						newObjects.add(power);
+					}
 				}
 			}
 		}
@@ -110,4 +112,6 @@ public abstract class Brick extends FieldPolarObject
 	{
 		return destroyed;
 	}
+
+	public abstract boolean requiredToEnd();
 }

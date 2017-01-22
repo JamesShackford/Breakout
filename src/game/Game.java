@@ -15,41 +15,16 @@ public class Game extends Application
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 	private Field field;
+	private Level level;
 
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		ArrayList<FieldObject> fieldElements = new ArrayList<FieldObject>();
-		Bouncer myBouncer = new Bouncer();
-		Planet planet = new Planet();
-		Paddle paddle = new Paddle(50.0f, 55.0f, 0.0f, 40.0f, 200.0f, 200.0f);
-
-		// for (int i = 0; i < 10; i++) {
-		// RegularBrick brick = new RegularBrick(75.0f, 95.0f, 0.0f, 20.0f,
-		// 0.0f, 0.0f);
-		// fieldElements.add(brick);
-		// }
-
-		double[] incidentVector = new double[] { 0, 1 };
-		double[] normalVector = PolarUtil.getUnitVector(new double[] { 1, 1 });
-		double[] reflectedVector = PolarUtil.getReflectionVector(incidentVector, normalVector);
-		System.out.println(reflectedVector[0] + ", " + reflectedVector[1]);
-
-		String[] layer1 = { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-				"1", "1", "1", "1", "1", "1" };
-		// String[] layer1 = { "I", "I", "I", "I" };
-		// String[] layer1 = { "1", "1", "1", "1" };
-		ArrayList<String[]> brickLayout = new ArrayList<String[]>();
-		brickLayout.add(layer1);
-		ArrayList<Brick> addedBricks = StageBuilder.buildBricks(100, brickLayout);
-		fieldElements.addAll(addedBricks);
-
-		fieldElements.add(myBouncer);
-		fieldElements.add(paddle);
-		fieldElements.add(planet);
-		field = new Field(stage, fieldElements);
+		field = new Field(stage);
+		level = new LevelOne(field);
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -70,6 +45,16 @@ public class Game extends Application
 			field.addElement(obj);
 		}
 		field.refreshImages();
+		if (this.level.levelComplete(field)) {
+			nextLevel();
+		}
+	}
+
+	private void nextLevel()
+	{
+		if (level instanceof LevelOne) {
+			level = new LevelTwo(field);
+		}
 	}
 
 	public static void main(String[] args)

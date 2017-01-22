@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 
 public class UnbreakableBrick extends Brick
 {
+	private final boolean REQUIRED_TO_END = false;
+
 	UnbreakableBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
@@ -23,5 +25,11 @@ public class UnbreakableBrick extends Brick
 	public double getPowerUpProbability()
 	{
 		return 0;
+	}
+
+	@Override
+	public boolean requiredToEnd()
+	{
+		return REQUIRED_TO_END;
 	}
 }

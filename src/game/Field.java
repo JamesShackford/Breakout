@@ -29,6 +29,15 @@ public class Field
 	private Group root;
 	private ArrayList<FieldObject> fieldElements;
 
+	public Field(Stage s)
+	{
+		this.fieldElements = new ArrayList<FieldObject>();
+		Scene scene = setupGame(SIZE, SIZE, BACKGROUND);
+		s.setScene(scene);
+		s.setTitle(TITLE);
+		s.show();
+	}
+
 	/**
 	 * Create a new Field object based on the given stage, and add the given
 	 * FieldObjects to the stage. Then, display the Field
@@ -118,4 +127,10 @@ public class Field
 	{
 		return fieldElements;
 	}
+
+	public void setScene(Scene myScene)
+	{
+		this.myScene = myScene;
+	}
+
 }
