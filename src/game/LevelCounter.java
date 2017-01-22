@@ -5,8 +5,8 @@ public class LevelCounter extends Counter
 
 	public LevelCounter()
 	{
-		super();
-		this.getLabel().relocate(2 * Field.CENTER_X / 3, 0);
+		super(1);
+		this.getLabel().relocate(4 * Field.CENTER_X / 3, 0);
 	}
 
 	@Override

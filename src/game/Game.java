@@ -26,10 +26,7 @@ public class Game extends Application
 		counters.add(new ScoreCounter());
 		counters.add(new LifeCounter());
 		field = new Field(stage);
-		level = new LevelOne(field);
-		for (Counter counter : counters) {
-			field.addElement(counter);
-		}
+		level = new LevelOne(field, counters);
 
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
@@ -46,12 +43,14 @@ public class Game extends Application
 		for (FieldObject myElement : field.getFieldElements()) {
 			ArrayList<FieldObject> newAddedObjects = myElement.step(SECOND_DELAY, field);
 			if (newAddedObjects != null && newAddedObjects.size() != 0) {
-				System.out.println("Hi");
 				addedObjects.addAll(newAddedObjects);
 			}
 		}
 		for (FieldObject obj : addedObjects) {
 			field.addElement(obj);
+		}
+		if (checkLevelRestart()) {
+			subtractLife();
 		}
 		field.refreshImages();
 		if (this.level.levelComplete(field)) {
@@ -61,8 +60,40 @@ public class Game extends Application
 
 	private void nextLevel()
 	{
+		for (Counter counter : counters) {
+			if (counter instanceof LevelCounter) {
+				((LevelCounter) counter).add(1);
+			}
+		}
 		if (level instanceof LevelOne) {
-			level = new LevelTwo(field);
+			level = new LevelTwo(field, counters);
+		}
+		if (level instanceof LevelTwo) {
+			level = new LevelThree(field, counters);
+		}
+	}
+
+	private boolean checkLevelRestart()
+	{
+		for (FieldObject elem : field.getFieldElements()) {
+			if (elem instanceof Bouncer && !((Bouncer) elem).isDead()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void subtractLife()
+	{
+		field.addElement(new Bouncer());
+		for (FieldObject elem : field.getFieldElements()) {
+			if (elem instanceof LifeCounter) {
+				LifeCounter lifeCounter = (LifeCounter) elem;
+				lifeCounter.add(-1);
+				if (lifeCounter.getCount() <= 0) {
+					field.getStage().close();
+				}
+			}
 		}
 	}
 

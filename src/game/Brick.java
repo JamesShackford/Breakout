@@ -21,12 +21,18 @@ public abstract class Brick extends FieldPolarObject
 	{
 		ArrayList<FieldObject> objects = field.getFieldElements();
 		ArrayList<FieldObject> newObjects = new ArrayList<FieldObject>();
+		ScoreCounter scoreCounter = null;
+		for (FieldObject currElem : objects) {
+			if (currElem instanceof ScoreCounter) {
+				scoreCounter = (ScoreCounter) currElem;
+			}
+		}
 		// check if a bouncer is hitting this brick, and if it is, then destroy
 		// the block and possibly create a PowerUp
 		for (FieldObject currElem : objects) {
 			if (currElem instanceof Bouncer) {
 				if (!((Bouncer) currElem).isDead()) {
-					PowerUp power = bouncerHit((Bouncer) currElem);
+					PowerUp power = bouncerHit((Bouncer) currElem, scoreCounter);
 					if (power != null) {
 						double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
 						double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
@@ -68,7 +74,7 @@ public abstract class Brick extends FieldPolarObject
 	 *            Bouncer on the Field
 	 * @return PowerUp that was released
 	 */
-	public abstract PowerUp bouncerHit(Bouncer bouncer);
+	public abstract PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter);
 
 	/**
 	 * Get the multiplicative probability that this brick will release a PowerUp

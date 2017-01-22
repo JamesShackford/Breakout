@@ -15,6 +15,7 @@ public class ThreeHitBrick extends Brick
 
 	private final double POWER_UP_PROBABILITY = 1.10;
 	private final boolean REQUIRED_TO_END = true;
+	private final int POINTS = 300;
 
 	ThreeHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
@@ -25,7 +26,7 @@ public class ThreeHitBrick extends Brick
 	}
 
 	@Override
-	public PowerUp bouncerHit(Bouncer bouncer)
+	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (bouncer.isFireball()) {
@@ -40,6 +41,7 @@ public class ThreeHitBrick extends Brick
 					this.getSemiRing().setFill(Color.WHITE);
 					this.getSemiRing().setStroke(Color.AZURE);
 				} else {
+					scoreCounter.add(POINTS);
 					return this.destroy();
 				}
 			}

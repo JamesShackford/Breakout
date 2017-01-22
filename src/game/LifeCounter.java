@@ -4,7 +4,7 @@ public class LifeCounter extends Counter
 {
 	public LifeCounter()
 	{
-		super();
+		super(3);
 		this.getLabel().relocate(0, 0);
 	}
 

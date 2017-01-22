@@ -13,9 +13,9 @@ public abstract class Counter implements FieldObject
 	private Label label = new Label("Count: ");
 	private final Color TEXTCOLOR = Color.ANTIQUEWHITE;
 
-	public Counter()
+	public Counter(int startCount)
 	{
-		this.count = 0;
+		this.count = startCount;
 		label.setTextFill(TEXTCOLOR);
 	}
 

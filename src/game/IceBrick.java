@@ -6,6 +6,7 @@ public class IceBrick extends Brick
 {
 	private final double POWER_UP_PROBABILITY = 1.20;
 	private final boolean REQUIRED_TO_END = false;
+	private final int POINTS = 500;
 
 	IceBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
@@ -15,10 +16,11 @@ public class IceBrick extends Brick
 	}
 
 	@Override
-	public PowerUp bouncerHit(Bouncer bouncer)
+	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (bouncer.isFireball()) {
+				scoreCounter.add(POINTS);
 				return this.destroy();
 			} else {
 				this.reflectBouncer(bouncer);

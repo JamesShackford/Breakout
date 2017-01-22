@@ -6,20 +6,23 @@ public abstract class Level
 {
 	private Field field;
 
-	public Level(Field field)
+	public Level(Field field, ArrayList<Counter> counters)
 	{
 		field.getFieldElements().clear();
+		field.refreshImages();
 		Bouncer myBouncer = new Bouncer();
 		Planet planet = new Planet();
 		Paddle paddle = makePaddle();
 		ArrayList<Brick> brickConfiguration = makeBrickConfiguration();
 
-		ArrayList<FieldObject> fieldElements = new ArrayList<FieldObject>();
 		field.addElement(myBouncer);
 		field.addElement(planet);
 		field.addElement(paddle);
 		for (Brick elem : brickConfiguration) {
 			field.addElement(elem);
+		}
+		for (Counter counter : counters) {
+			field.addElement(counter);
 		}
 	}
 

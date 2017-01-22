@@ -14,6 +14,7 @@ public class RegularBrick extends Brick
 
 	private final double POWER_UP_PROBABILITY = 1.0;
 	private final boolean REQUIRED_TO_END = true;
+	private final int POINTS = 50;
 
 	RegularBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
@@ -23,12 +24,13 @@ public class RegularBrick extends Brick
 	}
 
 	@Override
-	public PowerUp bouncerHit(Bouncer bouncer)
+	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (!bouncer.isFireball()) {
 				this.reflectBouncer(bouncer);
 			}
+			scoreCounter.add(POINTS);
 			return this.destroy();
 		}
 		return null;

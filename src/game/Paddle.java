@@ -134,7 +134,6 @@ public class Paddle extends FieldPolarObject
 					if (bouncerRad >= this.getInnerRadius() && bouncerRad <= this.getOuterRadius()) {
 						normalVector = PolarUtil.getTangentVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
 								centerY, false);
-						System.out.println("hello");
 					} else {
 						normalVector = PolarUtil.getNormalVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
 								centerY, false);

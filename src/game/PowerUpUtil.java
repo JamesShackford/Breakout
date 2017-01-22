@@ -31,6 +31,10 @@ public class PowerUpUtil
 		if (randDouble < currVal) {
 			return new FireballPowerUp();
 		}
+		currVal += getPowerUpProbability * PointsPowerUp.PROBABILITY;
+		if (randDouble < currVal) {
+			return new PointsPowerUp();
+		}
 		return null;
 	}
 }

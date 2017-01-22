@@ -13,7 +13,7 @@ public class UnbreakableBrick extends Brick
 	}
 
 	@Override
-	public PowerUp bouncerHit(Bouncer bouncer)
+	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			this.reflectBouncer(bouncer);

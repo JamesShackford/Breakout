@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class LevelTwo extends Level
 {
 
-	public LevelTwo(Field field)
+	public LevelTwo(Field field, ArrayList<Counter> counters)
 	{
-		super(field);
+		super(field, counters);
 	}
 
 	@Override

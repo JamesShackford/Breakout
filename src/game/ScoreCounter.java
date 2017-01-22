@@ -5,7 +5,8 @@ public class ScoreCounter extends Counter
 
 	public ScoreCounter()
 	{
-		this.getLabel().relocate(1 * Field.CENTER_X / 3, 0);
+		super(0);
+		this.getLabel().relocate(2 * Field.CENTER_X / 3, 0);
 	}
 
 	@Override

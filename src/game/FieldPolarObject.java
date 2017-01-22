@@ -62,10 +62,6 @@ public abstract class FieldPolarObject implements FieldObject
 
 	public boolean intersects(FieldCartesianObject obj)
 	{
-		double[] middlePolarCoords = PolarUtil.toPolar(obj.getX() - Field.CENTER_X, obj.getY() - Field.CENTER_Y);
-		double distMiddleToOrigin = middlePolarCoords[0];
-		double angleMiddleFromOrigin = middlePolarCoords[1];
-
 		boolean hitCurve = hitCurve(obj.getX(), obj.getY(), obj.getRadius());
 		boolean topLeftHitSide = hitSide(obj.getX() - obj.getRadius(), obj.getY() - obj.getRadius());
 		boolean bottomRightHitSide = hitSide(obj.getX() + obj.getRadius(), obj.getY() + obj.getRadius());
@@ -77,10 +73,10 @@ public abstract class FieldPolarObject implements FieldObject
 		double[] polarCoords = PolarUtil.toPolar(x - Field.CENTER_X, y - Field.CENTER_Y);
 		double distToOrigin = polarCoords[0];
 		double angleFromOrigin = polarCoords[1];
-		boolean hitCurve = distToOrigin + imageRadius >= this.getInnerRadius()
-				&& distToOrigin - imageRadius <= this.getOuterRadius() && angleFromOrigin >= this.getDegreeBegin()
-				&& angleFromOrigin <= this.getDegreeEnd();
-		return hitCurve;
+		boolean inRadiusRange = distToOrigin + imageRadius >= this.getInnerRadius()
+				&& distToOrigin - imageRadius <= this.getOuterRadius();
+		boolean inDegreeRange = (angleFromOrigin >= this.getDegreeBegin() && angleFromOrigin <= this.getDegreeEnd());
+		return inRadiusRange && inDegreeRange;
 	}
 
 	public boolean hitSide(double x, double y)

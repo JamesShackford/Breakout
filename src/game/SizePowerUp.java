@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SizePowerUp extends PowerUp
 {
-	public static final double PROBABILITY = 0.5;
+	public static final double PROBABILITY = 0.05;
 
 	public SizePowerUp()
 	{

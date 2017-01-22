@@ -28,10 +28,12 @@ public class Field
 	private Scene myScene;
 	private Group root;
 	private ArrayList<FieldObject> fieldElements;
+	private Stage stage;
 
 	public Field(Stage s)
 	{
 		this.fieldElements = new ArrayList<FieldObject>();
+		stage = s;
 		Scene scene = setupGame(SIZE, SIZE, BACKGROUND);
 		s.setScene(scene);
 		s.setTitle(TITLE);
@@ -116,6 +118,11 @@ public class Field
 	public Scene getScene()
 	{
 		return myScene;
+	}
+
+	public Stage getStage()
+	{
+		return stage;
 	}
 
 	/**
