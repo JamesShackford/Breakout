@@ -16,12 +16,21 @@ public class Game extends Application
 
 	private Field field;
 	private Level level;
+	private ArrayList<Counter> counters;
 
 	@Override
 	public void start(Stage stage) throws Exception
 	{
+		counters = new ArrayList<Counter>();
+		counters.add(new LevelCounter());
+		counters.add(new ScoreCounter());
+		counters.add(new LifeCounter());
 		field = new Field(stage);
 		level = new LevelOne(field);
+		for (Counter counter : counters) {
+			field.addElement(counter);
+		}
+
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 
