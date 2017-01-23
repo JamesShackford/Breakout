@@ -120,6 +120,8 @@ public class Bouncer extends FieldCartesianObject
 		if (key.getCode().equals(KeyCode.SPACE) && this.getStickingToPaddle()) {
 			this.setDirection(
 					PolarUtil.getNormalVector(this.getX(), this.getY(), Field.CENTER_X, Field.CENTER_Y, false));
+			this.setX(this.getX() + 4 * Game.SECOND_DELAY * (this.getXSpeed()));
+			this.setY(this.getY() + 4 * Game.SECOND_DELAY * (this.getYSpeed()));
 			this.setStickingToPaddle(false);
 		}
 		// F --> increase speed of ball

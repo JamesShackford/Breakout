@@ -39,7 +39,7 @@ public class IceBrick extends Brick
 	@Override
 	public double getPowerUpProbability()
 	{
-		return 0;
+		return POWER_UP_PROBABILITY;
 	}
 
 	@Override

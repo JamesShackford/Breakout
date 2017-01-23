@@ -22,7 +22,8 @@ public class FireballPowerUp extends PowerUp
 		// fireball
 		// is determined by when it was added to the field.
 		for (FieldObject obj : field.getFieldElements()) {
-			if (obj instanceof Bouncer && ((Bouncer) obj).getImage() != null && !((Bouncer) obj).isFireball()) {
+			if (obj instanceof Bouncer && ((Bouncer) obj).getImage() != null && !((Bouncer) obj).isDead()
+					&& !((Bouncer) obj).isFireball()) {
 				((Bouncer) obj).setFireball(true);
 				return null;
 			}

@@ -52,39 +52,4 @@ public class PolarUtilTest
 		Assert.assertEquals(downRightVector[1], normalDownRightVector[1], 0.01);
 	}
 
-	@Test
-	public void getReflectedVectorTest()
-	{
-		double[] leftReflectedVector1 = PolarUtil.getReflectionVector(upwardVector, downLeftVector);
-		Assert.assertEquals(rightVector[0], leftReflectedVector1[0], 0.01);
-		Assert.assertEquals(rightVector[1], leftReflectedVector1[1], 0.01);
-
-		double[] leftReflectedVector2 = PolarUtil.getReflectionVector(downwardVector, upLeftVector);
-		Assert.assertEquals(leftVector[0], leftReflectedVector2[0], 0.01);
-		Assert.assertEquals(leftVector[1], leftReflectedVector2[1], 0.01);
-
-		double[] rightReflectedVector1 = PolarUtil.getReflectionVector(upwardVector, downRightVector);
-		Assert.assertEquals(rightVector[0], rightReflectedVector1[0], 0.01);
-		Assert.assertEquals(rightVector[1], rightReflectedVector1[1], 0.01);
-
-		double[] rightReflectedVector2 = PolarUtil.getReflectionVector(downwardVector, upRightVector);
-		Assert.assertEquals(rightVector[0], rightReflectedVector2[0], 0.01);
-		Assert.assertEquals(rightVector[1], rightReflectedVector2[1], 0.01);
-
-		double[] upReflectedVector1 = PolarUtil.getReflectionVector(rightVector, upLeftVector);
-		Assert.assertEquals(upwardVector[0], upReflectedVector1[0], 0.01);
-		Assert.assertEquals(upwardVector[1], upReflectedVector1[1], 0.01);
-
-		double[] upReflectedVector2 = PolarUtil.getReflectionVector(leftVector, upRightVector);
-		Assert.assertEquals(upwardVector[0], upReflectedVector2[0], 0.01);
-		Assert.assertEquals(upwardVector[1], upReflectedVector2[1], 0.01);
-
-		double[] downReflectedVector1 = PolarUtil.getReflectionVector(rightVector, downLeftVector);
-		Assert.assertEquals(downwardVector[0], downReflectedVector1[0], 0.01);
-		Assert.assertEquals(downwardVector[1], downReflectedVector1[1], 0.01);
-
-		double[] downReflectedVector2 = PolarUtil.getReflectionVector(leftVector, downRightVector);
-		Assert.assertEquals(downwardVector[0], downReflectedVector2[0], 0.01);
-		Assert.assertEquals(downwardVector[1], downReflectedVector2[1], 0.01);
-	}
 }
