@@ -1,5 +1,9 @@
 package game.level;
 
+/**
+ * Abstractly define what a level is. A level must have an associated Field
+ * and it must be able to say when it has been complete.
+ */
 import java.util.ArrayList;
 
 import game.Field;
@@ -16,6 +20,7 @@ public abstract class Level
 
 	public Level(Field field, ArrayList<Counter> counters, double bouncerSpeed)
 	{
+		// add bouncer, planet, paddle, and counters to the level.
 		field.getFieldElements().clear();
 		field.refreshImages();
 		Bouncer myBouncer = new Bouncer();
@@ -46,6 +51,8 @@ public abstract class Level
 
 	public boolean levelComplete(Field field)
 	{
+		// a level is complete when all bricks that need to be destroyed have
+		// been destroyed
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof Brick && !((Brick) obj).getDestroyed() && ((Brick) obj).requiredToEnd()) {
 				return false;

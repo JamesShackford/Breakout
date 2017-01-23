@@ -20,6 +20,7 @@ public class LifeCounter extends Counter
 	@Override
 	public void onKeyPressed(KeyEvent key)
 	{
+		// add a life if "L" is pressed
 		if (key.getCode() == KeyCode.L) {
 			this.add(1);
 		}

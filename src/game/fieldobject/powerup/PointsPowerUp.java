@@ -8,7 +8,7 @@ import game.fieldobject.counter.ScoreCounter;
 
 public class PointsPowerUp extends PowerUp
 {
-	public static final double PROBABILITY = 0.5;
+	public static final double PROBABILITY = 0.1;
 	public static final int POINTS = 500;
 
 	public PointsPowerUp()
@@ -19,6 +19,7 @@ public class PointsPowerUp extends PowerUp
 	@Override
 	public ArrayList<FieldObject> action(Field field)
 	{
+		// add points to the player's score
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof ScoreCounter) {
 				((ScoreCounter) obj).add(POINTS);

@@ -11,7 +11,7 @@ import game.fieldobject.FieldObject;
  */
 public class ExtraBallPowerUp extends PowerUp
 {
-	public static final double PROBABILITY = 0.1;
+	public static final double PROBABILITY = 0.05;
 
 	public ExtraBallPowerUp()
 	{
@@ -21,6 +21,7 @@ public class ExtraBallPowerUp extends PowerUp
 	@Override
 	public ArrayList<FieldObject> action(Field field)
 	{
+		// add a bouncer to the field
 		Bouncer bouncer = new Bouncer();
 		ArrayList<FieldObject> addedObjs = new ArrayList<FieldObject>();
 		addedObjs.add(bouncer);

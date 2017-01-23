@@ -18,9 +18,11 @@ public class Bouncer extends FieldCartesianObject
 	// x direction is index 0, y direction is index 1
 	// this must be a unit vector
 	private double[] velocityDirection;
-
+	// bouncer will stick to paddle if this is true
 	private boolean stickingToPaddle;
+
 	private boolean isFireball;
+	// true if bouncer hit the planet
 	private boolean isDead;
 
 	public Bouncer()
@@ -118,21 +120,28 @@ public class Bouncer extends FieldCartesianObject
 		if (key.getCode().equals(KeyCode.SPACE) && this.getStickingToPaddle()) {
 			this.setDirection(
 					PolarUtil.getNormalVector(this.getX(), this.getY(), Field.CENTER_X, Field.CENTER_Y, false));
-			this.setX(this.getX() + 4 * this.getXSpeed() * Game.SECOND_DELAY);
-			this.setY(this.getY() + 4 * this.getYSpeed() * Game.SECOND_DELAY);
 			this.setStickingToPaddle(false);
 		}
+		// F --> increase speed of ball
 		if (key.getCode().equals(KeyCode.F)) {
 			this.setSpeed(this.getSpeed() * SPEEDINCREASE);
 		}
+		// S --> decrease speed of ball
 		if (key.getCode().equals(KeyCode.S)) {
 			this.setSpeed(this.getSpeed() / SPEEDINCREASE);
 		}
+		// R --> reset original ball position
 		if (key.getCode().equals(KeyCode.R)) {
 			this.setStickingToPaddle(true);
 		}
 	}
 
+	/**
+	 * Put the ball in the middle of the paddle and make the ball follow the
+	 * paddle wherever it moves
+	 * 
+	 * @param paddle
+	 */
 	public void stickToPaddle(Paddle paddle)
 	{
 		double middleDegree = 90 - (paddle.getDegreeBegin() + paddle.getDegreeEnd()) / 2;
@@ -170,6 +179,7 @@ public class Bouncer extends FieldCartesianObject
 			this.setDirection(new double[] { this.getDirection()[0], -1 * this.getDirection()[1] });
 		}
 
+		// if the ball hits the Planet, the ball disappears and becomes "dead"
 		double radialDistance = PolarUtil.toPolar(this.getX() - Field.CENTER_X, this.getY() - Field.CENTER_Y)[0];
 		for (FieldObject elem : field.getFieldElements()) {
 			if (elem instanceof Planet && radialDistance <= ((Planet) elem).getRadius()) {

@@ -8,7 +8,7 @@ import game.fieldobject.FieldObject;
 
 public class FireballPowerUp extends PowerUp
 {
-	public static final double PROBABILITY = 0.5;
+	public static final double PROBABILITY = 0.03;
 
 	public FireballPowerUp()
 	{
@@ -18,6 +18,9 @@ public class FireballPowerUp extends PowerUp
 	@Override
 	public ArrayList<FieldObject> action(Field field)
 	{
+		// turn one bouncer into a fireball. The bouncer that turns into a
+		// fireball
+		// is determined by when it was added to the field.
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof Bouncer && ((Bouncer) obj).getImage() != null && !((Bouncer) obj).isFireball()) {
 				((Bouncer) obj).setFireball(true);

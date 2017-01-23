@@ -14,8 +14,8 @@ import javafx.scene.paint.Color;
  */
 public class RegularBrick extends Brick
 {
-	public static final Color FILLCOLOR = Color.ROSYBROWN;
-	public static final Color STROKECOLOR = Color.SADDLEBROWN;
+	public static final Color FILL_COLOR = Color.ROSYBROWN;
+	public static final Color STROKE_COLOR = Color.SADDLEBROWN;
 	private final double POWER_UP_PROBABILITY = 1.0;
 	private final boolean REQUIRED_TO_END = true;
 	private final int POINTS = 50;
@@ -23,12 +23,13 @@ public class RegularBrick extends Brick
 	public RegularBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR, STROKECOLOR);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILL_COLOR, STROKE_COLOR);
 	}
 
 	@Override
 	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
+		// if hit by bouncer, brick is destroyed
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (!bouncer.isFireball()) {
 				this.reflectBouncer(bouncer);

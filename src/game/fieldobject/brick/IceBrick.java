@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 
 public class IceBrick extends Brick
 {
-	public final static Color FILLCOLOR = Color.LIGHTSKYBLUE;
-	public final static Color STROKECOLOR = Color.DEEPSKYBLUE;
+	public final static Color FILL_COLOR = Color.LIGHTSKYBLUE;
+	public final static Color STROKE_COLOR = Color.DEEPSKYBLUE;
 
 	private final double POWER_UP_PROBABILITY = 1.20;
 	private final boolean REQUIRED_TO_END = false;
@@ -18,13 +18,13 @@ public class IceBrick extends Brick
 			double centerY)
 	{
 		super();
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.LIGHTSKYBLUE,
-				Color.DEEPSKYBLUE);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILL_COLOR, STROKE_COLOR);
 	}
 
 	@Override
 	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
+		// ice brick only destroyed if hit by fireball
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (bouncer.isFireball()) {
 				scoreCounter.add(POINTS);

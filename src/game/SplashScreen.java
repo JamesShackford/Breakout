@@ -41,6 +41,9 @@ public class SplashScreen
 		titleScreen();
 	}
 
+	/**
+	 * Describes the general rules of the game.
+	 */
 	public void titleScreen()
 	{
 		Label planetProtectorTitle = createLabel("PLANET PROTECTOR", TITLEFONT, TITLECOLOR, Field.CENTER_X / 4, 0);
@@ -66,6 +69,9 @@ public class SplashScreen
 		root.getChildren().add(startGameLabel);
 	}
 
+	/**
+	 * Describes all of the power ups
+	 */
 	public void powerUpScreen()
 	{
 		Label powerUpTitle = createLabel("Power Ups", TITLEFONT, TITLECOLOR, Field.CENTER_X / 4, 0);
@@ -128,38 +134,41 @@ public class SplashScreen
 		root.getChildren().add(startGameLabel);
 	}
 
+	/**
+	 * Describes the bricks in the game
+	 */
 	public void brickScreen()
 	{
 		Label brickTitle = createLabel("Bricks", TITLEFONT, TITLECOLOR, Field.CENTER_X / 4, 0);
 
-		Rectangle oneHitBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 40, RegularBrick.FILLCOLOR,
-				RegularBrick.STROKECOLOR);
+		Rectangle oneHitBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 40, RegularBrick.FILL_COLOR,
+				RegularBrick.STROKE_COLOR);
 		Label oneHitBrickLabel = createLabel("One-Hit Brick: This brick only takes one\nhit from a ball to destroy.",
 				TEXTFONT, TEXTCOLOR, LEFTLABELX + BRICKSIZE, 30);
 
-		Rectangle twoHitBrick1 = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 80, TwoHitBrick.FILLCOLOR1,
-				TwoHitBrick.STROKECOLOR1);
-		Rectangle twoHitBrick2 = makeBrickImage(BRICKSIZE, LEFTIMAGEX + BRICKSIZE + 2, 80, TwoHitBrick.FILLCOLOR2,
-				TwoHitBrick.STROKECOLOR2);
+		Rectangle twoHitBrick1 = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 80, TwoHitBrick.FILL_COLOR1,
+				TwoHitBrick.STROKE_COLOR1);
+		Rectangle twoHitBrick2 = makeBrickImage(BRICKSIZE, LEFTIMAGEX + BRICKSIZE + 2, 80, TwoHitBrick.FILL_COLOR2,
+				TwoHitBrick.STROKE_COLOR2);
 		Label twoHitBrickLabel = createLabel("Two-Hit Brick: This brick takes two hits\nto destroy.", TEXTFONT,
 				TEXTCOLOR, LEFTLABELX + 2 * BRICKSIZE, 70);
 
-		Rectangle threeHitBrick1 = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 120, ThreeHitBrick.FILLCOLOR1,
-				ThreeHitBrick.STROKECOLOR1);
-		Rectangle threeHitBrick2 = makeBrickImage(BRICKSIZE, LEFTIMAGEX + BRICKSIZE + 2, 120, ThreeHitBrick.FILLCOLOR2,
-				ThreeHitBrick.STROKECOLOR2);
+		Rectangle threeHitBrick1 = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 120, ThreeHitBrick.FILL_COLOR1,
+				ThreeHitBrick.STROKE_COLOR1);
+		Rectangle threeHitBrick2 = makeBrickImage(BRICKSIZE, LEFTIMAGEX + BRICKSIZE + 2, 120, ThreeHitBrick.FILL_COLOR2,
+				ThreeHitBrick.STROKE_COLOR2);
 		Rectangle threeHitBrick3 = makeBrickImage(BRICKSIZE, LEFTIMAGEX + 2 * BRICKSIZE + 4, 120,
-				ThreeHitBrick.FILLCOLOR3, ThreeHitBrick.STROKECOLOR3);
+				ThreeHitBrick.FILL_COLOR3, ThreeHitBrick.STROKE_COLOR3);
 		Label threeHitBrickLabel = createLabel("Three-Hit Brick: This brick takes three\nhits to destroy", TEXTFONT,
 				TEXTCOLOR, LEFTLABELX + 3 * BRICKSIZE, 110);
 
-		Rectangle iceBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 160, IceBrick.FILLCOLOR, IceBrick.STROKECOLOR);
+		Rectangle iceBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 160, IceBrick.FILL_COLOR, IceBrick.STROKE_COLOR);
 		Label iceBrickLabel = createLabel(
 				"Ice Brick: This brick can only be destroyed\nwhen a fireball hits it. It gives\nthe most points and has the highest chance\nof producing a power up.",
 				TEXTFONT, TEXTCOLOR, LEFTLABELX + BRICKSIZE, 150);
 
-		Rectangle unbreakableBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 240, UnbreakableBrick.FILLCOLOR,
-				UnbreakableBrick.STROKECOLOR);
+		Rectangle unbreakableBrick = makeBrickImage(BRICKSIZE, LEFTIMAGEX, 240, UnbreakableBrick.FILL_COLOR,
+				UnbreakableBrick.STROKE_COLOR);
 		Label unbreakableBrickLabel = createLabel("Unbreakable Brick: This brick can never\nbe destroyed", TEXTFONT,
 				TEXTCOLOR, LEFTLABELX + BRICKSIZE, 235);
 
@@ -183,6 +192,16 @@ public class SplashScreen
 		root.getChildren().add(startGameLabel);
 	}
 
+	/**
+	 * Creates a rectangle for display
+	 * 
+	 * @param size
+	 * @param x
+	 * @param y
+	 * @param fillColor
+	 * @param strokeColor
+	 * @return
+	 */
 	public Rectangle makeBrickImage(int size, int x, int y, Color fillColor, Color strokeColor)
 	{
 		Rectangle brick = new Rectangle();

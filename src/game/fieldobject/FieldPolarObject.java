@@ -62,6 +62,9 @@ public abstract class FieldPolarObject implements FieldObject
 		return degreeEnd;
 	}
 
+	// intersects a cartesian object if the object is within its radial
+	// boundaries and within its
+	// degree boundaries
 	public boolean intersects(FieldCartesianObject obj)
 	{
 		boolean hitCurve = hitCurve(obj.getX(), obj.getY(), obj.getRadius());
@@ -70,6 +73,14 @@ public abstract class FieldPolarObject implements FieldObject
 		return hitCurve || topLeftHitSide || bottomRightHitSide;
 	}
 
+	/**
+	 * True if hit the curved portion of the SemiRing
+	 * 
+	 * @param x
+	 * @param y
+	 * @param imageRadius
+	 * @return
+	 */
 	public boolean hitCurve(double x, double y, double imageRadius)
 	{
 		double[] polarCoords = PolarUtil.toPolar(x - Field.CENTER_X, y - Field.CENTER_Y);
@@ -77,6 +88,8 @@ public abstract class FieldPolarObject implements FieldObject
 		double angleFromOrigin = polarCoords[1];
 		boolean inRadiusRange = distToOrigin + imageRadius >= this.getInnerRadius()
 				&& distToOrigin - imageRadius <= this.getOuterRadius();
+		// include the cases where one part of the PolarObject is in quadrant 4
+		// and the other is in quadrant 4
 		if (this.getDegreeBegin() >= 360 || this.getDegreeEnd() >= 360) {
 			angleFromOrigin += 360;
 		} else if (this.getDegreeBegin() <= 0 || this.getDegreeEnd() <= 0) {
@@ -86,6 +99,7 @@ public abstract class FieldPolarObject implements FieldObject
 		return inRadiusRange && inDegreeRange;
 	}
 
+	// hit the side of the semiRing (the straight portion)
 	public boolean hitSide(double x, double y)
 	{
 		double[] polarCoords = PolarUtil.toPolar(x - Field.CENTER_X, y - Field.CENTER_Y);

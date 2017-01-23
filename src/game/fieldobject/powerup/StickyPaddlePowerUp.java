@@ -18,6 +18,7 @@ public class StickyPaddlePowerUp extends PowerUp
 	@Override
 	public ArrayList<FieldObject> action(Field field)
 	{
+		// whenever a bouncer hits the paddle, it will stick
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof Paddle) {
 				((Paddle) obj).setSticky(true);

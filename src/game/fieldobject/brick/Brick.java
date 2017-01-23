@@ -22,6 +22,7 @@ import game.fieldobject.powerup.PowerUpUtil;
 public abstract class Brick extends FieldPolarObject
 {
 	public static final double BRICK_THICKNESS = 20;
+	private static final int POWER_UP_SPEED = 20;
 
 	private boolean destroyed;
 
@@ -48,13 +49,16 @@ public abstract class Brick extends FieldPolarObject
 				if (!((Bouncer) currElem).isDead()) {
 					PowerUp power = bouncerHit((Bouncer) currElem, scoreCounter);
 					if (power != null) {
+						// make a power-up and begin its motion
 						double middleDegree = (this.getDegreeBegin() + this.getDegreeEnd()) / 2;
 						double[] cartesianCoords = PolarUtil.toCartesian(this.getInnerRadius(), middleDegree - 90);
 						System.out.println(this.getInnerRadius() + ", " + middleDegree + "-->" + cartesianCoords[0]
 								+ "," + cartesianCoords[1]);
 						power.setX(cartesianCoords[0] + Field.CENTER_X);
 						power.setY(cartesianCoords[1] + Field.CENTER_Y);
-						power.setSpeed(20);
+						power.setSpeed(POWER_UP_SPEED);
+						// the powerup will move towards the center of the
+						// circle
 						power.setDirection(PolarUtil.getNormalVector(power.getX(), power.getY(), Field.CENTER_X,
 								Field.CENTER_Y, true));
 						newObjects.add(power);
@@ -65,17 +69,12 @@ public abstract class Brick extends FieldPolarObject
 		return newObjects;
 	}
 
+	// reflect a bouncer based on the brick's normal vector and direction of the
+	// bouncer's motion
 	public void reflectBouncer(Bouncer bouncer)
 	{
-		double bouncerXRadius = bouncer.getImage().getBoundsInLocal().getWidth() / 2;
-		/*
-		 * If a bouncer is hitting the right/left edges of the brick, then
-		 * reflect the bouncer along that edge
-		 */
-		double[] polarCoords = PolarUtil.toPolar(bouncer.getX(), bouncer.getY());
-
-		double[] normalVector;
-		normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X, Field.CENTER_Y, false);
+		double[] normalVector = PolarUtil.getNormalVector(bouncer.getX(), bouncer.getY(), Field.CENTER_X,
+				Field.CENTER_Y, false);
 		double[] reflectionVector = PolarUtil.getReflectionVector(bouncer.getDirection(), normalVector);
 		bouncer.setDirection(reflectionVector);
 	}

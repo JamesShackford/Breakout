@@ -40,6 +40,7 @@ public class Game extends Application
 			@Override
 			public void handle(KeyEvent event)
 			{
+				// When space is pressed, begin the game
 				if (event.getCode().equals(KeyCode.SPACE)) {
 					counters = new ArrayList<Counter>();
 					counters.add(new LevelCounter());
@@ -52,6 +53,9 @@ public class Game extends Application
 						@Override
 						public void handle(KeyEvent event)
 						{
+							// Cheat codes:
+							// E --> add bouncer
+							// 1,2,3 --> go to corresponding level
 							if (event.getCode().equals(KeyCode.E)) {
 								field.addElement(new Bouncer());
 							} else if (event.getCode().equals(KeyCode.DIGIT1)) {
@@ -65,6 +69,7 @@ public class Game extends Application
 
 					});
 				}
+				// transition between screens on splash screen
 				if (event.getCode() == KeyCode.RIGHT) {
 					screen.nextScreen();
 				}
@@ -90,11 +95,16 @@ public class Game extends Application
 		if (field != null) {
 			ArrayList<FieldObject> addedObjects = new ArrayList<FieldObject>();
 			for (FieldObject myElement : field.getFieldElements()) {
+				// FieldObject's step function returns elements that should be
+				// added to the Field
+				// call step function on all elements in the Field
 				ArrayList<FieldObject> newAddedObjects = myElement.step(SECOND_DELAY, field);
 				if (newAddedObjects != null && newAddedObjects.size() != 0) {
 					addedObjects.addAll(newAddedObjects);
 				}
 			}
+			// Add new elements in new loop so that there isn't a concurrency
+			// error
 			for (FieldObject obj : addedObjects) {
 				field.addElement(obj);
 			}
@@ -135,6 +145,7 @@ public class Game extends Application
 		}
 	}
 
+	// level restarts if all bouncers are dead(they have hit the planet)
 	private boolean checkLevelRestart()
 	{
 		for (FieldObject elem : field.getFieldElements()) {
@@ -145,6 +156,7 @@ public class Game extends Application
 		return true;
 	}
 
+	// if there are no lives left, then exit the game
 	private void subtractLife()
 	{
 		field.addElement(new Bouncer());

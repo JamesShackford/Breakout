@@ -9,6 +9,22 @@ import javafx.scene.shape.Path;
 
 public class PolarUtil
 {
+	/**
+	 * Makes a semiRing from a beginningRadius to an outerRadius and from a
+	 * beginning degree to an ending degree.
+	 * 
+	 * A semiRing is a section of a ring,
+	 * 
+	 * @param innerRadius
+	 * @param outerRadius
+	 * @param degreeBegin
+	 * @param degreeEnd
+	 * @param centerX
+	 * @param centerY
+	 * @param fillColor
+	 * @param strokeColor
+	 * @return Path representation of SemiRing
+	 */
 	public static Path makeSemiRing(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd,
 			double centerX, double centerY, Color fillColor, Color strokeColor)
 	{
@@ -61,6 +77,14 @@ public class PolarUtil
 		return path;
 	}
 
+	/**
+	 * Converts polar coordinates (radius and degree) to Cartesian coordinates
+	 * (x and y).
+	 * 
+	 * @param radius
+	 * @param degree
+	 * @return double [x, y]
+	 */
 	public static double[] toCartesian(double radius, double degree)
 	{
 		double radian = Math.toRadians(degree);
@@ -70,6 +94,14 @@ public class PolarUtil
 		return cartesianCoordinates;
 	}
 
+	/**
+	 * Convert Cartesian coordinates (x and y) to polar coordinates (radius and
+	 * degree)
+	 * 
+	 * @param x
+	 * @param y
+	 * @return double [radius, degree]
+	 */
 	public static double[] toPolar(double x, double y)
 	{
 		double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -83,6 +115,14 @@ public class PolarUtil
 		return polarCoordinates;
 	}
 
+	/**
+	 * Convert a double[] representation of a vector to a unit vector. A unit
+	 * vector has a magnitude of 1 and thus only specifies direction.
+	 * 
+	 * @param vector
+	 *            double [x,y]
+	 * @return unit vector
+	 */
 	public static double[] getUnitVector(double[] vector)
 	{
 		double[] unitVector = new double[vector.length];
@@ -96,6 +136,13 @@ public class PolarUtil
 		return unitVector;
 	}
 
+	/**
+	 * Compute the dot product of two vectors
+	 * 
+	 * @param vector1
+	 * @param vector2
+	 * @return vector1 dot vector2
+	 */
 	public static double dotProduct(double[] vector1, double[] vector2)
 	{
 		double dotProduct = 0;
@@ -105,6 +152,18 @@ public class PolarUtil
 		return dotProduct;
 	}
 
+	/**
+	 * Determines the direction in which an object will reflect when it hits an
+	 * object with a given normalVector and the object has a given
+	 * incidentVector
+	 * 
+	 * By the law of reflection, the reflection vector is equal to:
+	 * incidentVector - 2*(incidentVector dot normalVector)*normalVector
+	 * 
+	 * @param incidentVector
+	 * @param normalVector
+	 * @return reflectionVector direction of reflection (a vector)
+	 */
 	public static double[] getReflectionVector(double[] incidentVector, double[] normalVector)
 	{
 		double[] reflectionVector = new double[2];
@@ -118,6 +177,17 @@ public class PolarUtil
 		return reflectionVector;
 	}
 
+	/**
+	 * Gets the normal vector at a given position along a circle. The normal
+	 * vector points either towards or away from the center of the circle.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param centerX
+	 * @param centerY
+	 * @param towardsCenter
+	 * @return
+	 */
 	public static double[] getNormalVector(double x, double y, double centerX, double centerY, boolean towardsCenter)
 	{
 		double[] normalVector = new double[2];
@@ -131,6 +201,17 @@ public class PolarUtil
 		return normalVector;
 	}
 
+	/**
+	 * Gets the tangent vector of a circle at the given position. A tangent
+	 * vector [a, b] is related to a normal vector [c, d] by: [a, b] = [d, -c]
+	 * 
+	 * @param x
+	 * @param y
+	 * @param centerX
+	 * @param centerY
+	 * @param towardsCenter
+	 * @return tangent vector
+	 */
 	public static double[] getTangentVector(double x, double y, double centerX, double centerY, boolean towardsCenter)
 	{
 		double[] tangentVector = new double[2];
@@ -138,16 +219,5 @@ public class PolarUtil
 		tangentVector[0] = normalVector[1];
 		tangentVector[1] = -1 * normalVector[0];
 		return tangentVector;
-	}
-
-	public static double normalizeAngle(double angle)
-	{
-		while (angle > 360) {
-			angle -= 360;
-		}
-		while (angle < 0) {
-			angle += 360;
-		}
-		return angle;
 	}
 }

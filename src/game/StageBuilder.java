@@ -11,6 +11,16 @@ import game.fieldobject.brick.UnbreakableBrick;
 
 public class StageBuilder
 {
+	/**
+	 * Build a configuration of bricks. "1" -> RegularBrick "2" -> TwoHitBrick
+	 * "3" -> ThreeHitBrick "U" -> UnbreakableBrick "I" -> IceBrick
+	 * 
+	 * @param startingRadius
+	 * @param brickLayout
+	 *            Array of Strings representing rows of bricks to be added to
+	 *            the stage.
+	 * @return Array of bricks to be added
+	 */
 	public static ArrayList<Brick> buildBricks(double startingRadius, ArrayList<String[]> brickLayout)
 	{
 		ArrayList<Brick> bricks = new ArrayList<Brick>();

@@ -1,4 +1,5 @@
 package game.fieldobject.powerup;
+
 import java.util.ArrayList;
 
 import game.Field;
@@ -60,6 +61,7 @@ public abstract class PowerUp extends FieldCartesianObject
 						return action(field);
 					}
 				}
+				// when the power-up hits a planet, it is destroyed
 				if (obj instanceof Planet) {
 					double radialDistance = PolarUtil.toPolar(this.getX() - Field.CENTER_X,
 							this.getY() - Field.CENTER_Y)[0];
@@ -76,12 +78,6 @@ public abstract class PowerUp extends FieldCartesianObject
 		return null;
 	}
 
-	/**
-	 * Set the velocity of the PowerUp
-	 * 
-	 * @param velocity
-	 *            speed that the PowerUp moves at
-	 */
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
@@ -92,21 +88,11 @@ public abstract class PowerUp extends FieldCartesianObject
 		this.velocityDirection = PolarUtil.getUnitVector(direction);
 	}
 
-	/**
-	 * Gets whether the PowerUp has been destroyed or not.
-	 * 
-	 * @return True if the PowerUp has been destroyed, false if it has not.
-	 */
 	public boolean getDestroyed()
 	{
 		return destroyed;
 	}
 
-	/**
-	 * Gets the velocity of the PowerUp.
-	 * 
-	 * @return velocity of the PowerUp
-	 */
 	public double getSpeed()
 	{
 		return speed;

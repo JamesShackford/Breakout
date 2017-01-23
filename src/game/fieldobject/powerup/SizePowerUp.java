@@ -18,6 +18,7 @@ public class SizePowerUp extends PowerUp
 	@Override
 	public ArrayList<FieldObject> action(Field field)
 	{
+		// increase the size of the paddle
 		for (FieldObject obj : field.getFieldElements()) {
 			if (obj instanceof Paddle) {
 				((Paddle) obj).increaseSize();

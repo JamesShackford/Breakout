@@ -22,9 +22,13 @@ public class Paddle extends FieldPolarObject
 	private final Color FILL_COLOR = Color.CORAL;
 	private final Color STROKE_COLOR = Color.CRIMSON;
 	private final double INCREASE_AMOUNT = 30; // degrees
+	private final double SLOW_DOWN_RATE = 3;
+	private final double THRESHOLD_SPEED = 50;
 	private double centerX;
 	private double centerY;
 	private boolean sticky;
+	// specifies that the paddle has had an increase in size (from the size
+	// power up)
 	private boolean increasedSize;
 
 	public Paddle(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
@@ -37,11 +41,6 @@ public class Paddle extends FieldPolarObject
 		this.increasedSize = false;
 	}
 
-	/**
-	 * Get the speed of the paddle
-	 * 
-	 * @return double speed
-	 */
 	public double getSpeed()
 	{
 		return speed;
@@ -57,12 +56,6 @@ public class Paddle extends FieldPolarObject
 		return sticky;
 	}
 
-	/**
-	 * Set the speed of the paddle
-	 * 
-	 * @param speed
-	 *            doubls speed
-	 */
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
@@ -99,7 +92,7 @@ public class Paddle extends FieldPolarObject
 			if (this.getSpeed() < 0) {
 				this.setSpeed(0);
 			} else {
-				this.setSpeed(this.getSpeed() + 50 * (1 - (this.getSpeed()) / 200));
+				this.setSpeed(this.getSpeed() + THRESHOLD_SPEED * (1 - (this.getSpeed()) / (4 * THRESHOLD_SPEED)));
 			}
 		}
 		/*
@@ -111,7 +104,7 @@ public class Paddle extends FieldPolarObject
 			if (this.getSpeed() > 0) {
 				this.setSpeed(0);
 			} else {
-				this.setSpeed(this.getSpeed() - 50 * (1 + (this.getSpeed()) / 200));
+				this.setSpeed(this.getSpeed() - THRESHOLD_SPEED * (1 + (this.getSpeed()) / (4 * THRESHOLD_SPEED)));
 			}
 		}
 	}
@@ -130,10 +123,13 @@ public class Paddle extends FieldPolarObject
 					if (this.getSticky()) {
 						thisBouncer.setStickingToPaddle(true);
 					}
-					double bouncerRad = PolarUtil.toPolar(thisBouncer.getX() - centerX,
+					// convert the bouncers coordinates to a radius
+					double bouncerRadius = PolarUtil.toPolar(thisBouncer.getX() - centerX,
 							thisBouncer.getY() - centerY)[0];
 					double[] normalVector;
-					if (bouncerRad >= this.getInnerRadius() && bouncerRad <= this.getOuterRadius()) {
+					// determine the normal vector based on where the bouncer
+					// his the paddle
+					if (bouncerRadius >= this.getInnerRadius() && bouncerRadius <= this.getOuterRadius()) {
 						normalVector = PolarUtil.getTangentVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
 								centerY, false);
 					} else {
@@ -152,7 +148,7 @@ public class Paddle extends FieldPolarObject
 		// slow the paddle down until it reaches 0 speed when no keys are being
 		// pressed
 		if (this.getSpeed() != 0) {
-			this.setSpeed(this.getSpeed() - 3 * Math.signum(this.getSpeed()));
+			this.setSpeed(this.getSpeed() - SLOW_DOWN_RATE * Math.signum(this.getSpeed()));
 		}
 		return addedObjects;
 	}

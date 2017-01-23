@@ -14,10 +14,10 @@ import javafx.scene.paint.Color;
  */
 public class TwoHitBrick extends Brick
 {
-	public static final Color FILLCOLOR1 = Color.CRIMSON;
-	public static final Color FILLCOLOR2 = Color.DARKMAGENTA;
-	public static final Color STROKECOLOR1 = Color.TOMATO;
-	public static final Color STROKECOLOR2 = Color.BLACK;
+	public static final Color FILL_COLOR1 = Color.CRIMSON;
+	public static final Color FILL_COLOR2 = Color.DARKMAGENTA;
+	public static final Color STROKE_COLOR1 = Color.TOMATO;
+	public static final Color STROKE_COLOR2 = Color.BLACK;
 
 	private int hits;
 	private final double POWER_UP_PROBABILITY = 1.05;
@@ -27,13 +27,16 @@ public class TwoHitBrick extends Brick
 	public TwoHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR1, STROKECOLOR1);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILL_COLOR1,
+				STROKE_COLOR1);
 		hits = 0;
 	}
 
 	@Override
 	public PowerUp bouncerHit(Bouncer bouncer, ScoreCounter scoreCounter)
 	{
+		// requires 2 hits by a bouncer before it is destroyed
+		// if hit by a fireball, it is destroyed automatically
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (bouncer.isFireball()) {
 				scoreCounter.add(POINTS);
@@ -42,8 +45,8 @@ public class TwoHitBrick extends Brick
 				hits += 1;
 				this.reflectBouncer(bouncer);
 				if (hits == 1) {
-					this.getSemiRing().setFill(FILLCOLOR2);
-					this.getSemiRing().setStroke(STROKECOLOR2);
+					this.getSemiRing().setFill(FILL_COLOR2);
+					this.getSemiRing().setStroke(STROKE_COLOR2);
 				} else {
 					scoreCounter.add(POINTS);
 					return this.destroy();

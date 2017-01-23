@@ -22,6 +22,11 @@ public class Planet extends FieldCartesianObject
 		return null;
 	}
 
+	/**
+	 * set the size of the planet
+	 * 
+	 * @param radius
+	 */
 	public void setRadius(double radius)
 	{
 		this.getImage().setFitHeight(radius * 2);

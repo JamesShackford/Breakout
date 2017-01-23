@@ -1,4 +1,5 @@
 package game.fieldobject;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,21 +16,11 @@ public abstract class FieldCartesianObject implements FieldObject
 {
 	private ImageView image;
 
-	/**
-	 * Get the x position of this field object
-	 * 
-	 * @return x position (a double)
-	 */
 	public double getX()
 	{
 		return image.getX() + this.getRadius();
 	}
 
-	/**
-	 * Get the y position of this field object
-	 * 
-	 * @return y position (a double)
-	 */
 	public double getY()
 	{
 		return image.getY() + this.getRadius();
@@ -51,44 +42,21 @@ public abstract class FieldCartesianObject implements FieldObject
 		return getImage();
 	}
 
-	/**
-	 * Get this field object's image
-	 * 
-	 * @return ImageView of this image
-	 */
 	public ImageView getImage()
 	{
 		return image;
 	}
 
-	/**
-	 * Set the x position of this field object
-	 * 
-	 * @param x
-	 *            x position (double)
-	 */
 	public void setX(double x)
 	{
 		image.setX(x - this.getRadius());
 	}
 
-	/**
-	 * Set the y position of this field object
-	 * 
-	 * @param y
-	 *            y position (double)
-	 */
 	public void setY(double y)
 	{
 		image.setY(y - this.getRadius());
 	}
 
-	/**
-	 * Set the image for this field object
-	 * 
-	 * @param image
-	 *            ImageView for this object's image
-	 */
 	public void setImage(ImageView image)
 	{
 		this.image = image;

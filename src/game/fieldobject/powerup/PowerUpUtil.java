@@ -12,7 +12,12 @@ public class PowerUpUtil
 {
 	public static PowerUp getPowerUp(double getPowerUpProbability)
 	{
-		// Allow rand value to go over 1.0?
+		// The summation of the probabilities of all power ups must be less than
+		// 1.
+		// Determine which power up to produce at Random according to the
+		// block's
+		// probability (getPowerUpProbability) and the power-up's probability
+		// (ProbabilityClazz.PROBABILITY)
 		Random rand = new Random();
 		double randDouble = rand.nextDouble();
 		double currVal = getPowerUpProbability * ExtraBallPowerUp.PROBABILITY;

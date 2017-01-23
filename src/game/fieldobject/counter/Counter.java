@@ -9,6 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
+/**
+ * Keeps count of something and represents it in a Label
+ * 
+ * @author jimmy
+ *
+ */
 public abstract class Counter implements FieldObject
 {
 	private int count;
