@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.Field;
 import game.StageBuilder;
+import game.fieldobject.Bouncer;
 import game.fieldobject.Paddle;
 import game.fieldobject.brick.Brick;
 import game.fieldobject.counter.Counter;
@@ -11,15 +12,17 @@ import game.fieldobject.counter.Counter;
 public class LevelTwo extends Level
 {
 
+	private final double STARTDISTANCE = 115;
+
 	public LevelTwo(Field field, ArrayList<Counter> counters)
 	{
-		super(field, counters);
+		super(field, counters, 1.1 * Bouncer.NORMALSPEED);
 	}
 
 	@Override
 	public Paddle makePaddle()
 	{
-		return new Paddle(50.0f, 55.0f, 0.0f, 40.0f, 200.0f, 200.0f);
+		return new Paddle(50.0f, 55.0f, 0.0f, 50.0f, 200.0f, 200.0f);
 	}
 
 	@Override
@@ -34,7 +37,7 @@ public class LevelTwo extends Level
 		brickLayout.add(layer2);
 		brickLayout.add(layer3);
 		brickLayout.add(layer4);
-		return StageBuilder.buildBricks(100, brickLayout);
+		return StageBuilder.buildBricks(STARTDISTANCE, brickLayout);
 	}
 
 }

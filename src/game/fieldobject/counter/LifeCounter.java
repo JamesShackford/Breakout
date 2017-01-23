@@ -1,5 +1,8 @@
 package game.fieldobject.counter;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 public class LifeCounter extends Counter
 {
 	public LifeCounter()
@@ -12,5 +15,13 @@ public class LifeCounter extends Counter
 	public void updateLabel()
 	{
 		this.getLabel().setText("Lives: " + this.getCount());
+	}
+
+	@Override
+	public void onKeyPressed(KeyEvent key)
+	{
+		if (key.getCode() == KeyCode.L) {
+			this.add(1);
+		}
 	}
 }

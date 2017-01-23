@@ -11,9 +11,8 @@ import javafx.scene.input.KeyEvent;
 
 public class Bouncer extends FieldCartesianObject
 {
-	private final double xStartPosition = Field.SIZE / 2;
-	private final double yStartPosition = Field.SIZE / 2;
-	public static final double normalSpeed = Field.SIZE / (200 * Game.SECOND_DELAY);
+	private final double SPEEDINCREASE = 1.1;
+	public static final double NORMALSPEED = Field.SIZE / (200 * Game.SECOND_DELAY);
 
 	private double speed;
 	// x direction is index 0, y direction is index 1
@@ -29,8 +28,7 @@ public class Bouncer extends FieldCartesianObject
 		this.stickingToPaddle = true;
 		this.setImage("ball.gif");
 		this.setDirection(new double[] { 1.0, 1.0 });
-		this.setSpeed(normalSpeed);
-
+		this.setSpeed(NORMALSPEED);
 	}
 
 	public double getXSpeed()
@@ -41,6 +39,11 @@ public class Bouncer extends FieldCartesianObject
 	public double getYSpeed()
 	{
 		return velocityDirection[1] * speed;
+	}
+
+	public double getSpeed()
+	{
+		return Math.sqrt((Math.pow(this.getXSpeed(), 2)) + (Math.pow(this.getYSpeed(), 2)));
 	}
 
 	/**
@@ -92,8 +95,7 @@ public class Bouncer extends FieldCartesianObject
 		this.setImage("fireball.gif");
 		this.getImage().setX(currX);
 		this.getImage().setY(currY);
-		double speed = Math.sqrt(Math.pow(this.getXSpeed(), 2) + Math.pow(this.getYSpeed(), 2));
-		this.setSpeed(speed * 2);
+		this.setSpeed(this.getSpeed() * 2);
 
 	}
 
@@ -119,6 +121,15 @@ public class Bouncer extends FieldCartesianObject
 			this.setX(this.getX() + 4 * this.getXSpeed() * Game.SECOND_DELAY);
 			this.setY(this.getY() + 4 * this.getYSpeed() * Game.SECOND_DELAY);
 			this.setStickingToPaddle(false);
+		}
+		if (key.getCode().equals(KeyCode.F)) {
+			this.setSpeed(this.getSpeed() * SPEEDINCREASE);
+		}
+		if (key.getCode().equals(KeyCode.S)) {
+			this.setSpeed(this.getSpeed() / SPEEDINCREASE);
+		}
+		if (key.getCode().equals(KeyCode.R)) {
+			this.setStickingToPaddle(true);
 		}
 	}
 

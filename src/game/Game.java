@@ -37,17 +37,33 @@ public class Game extends Application
 		SplashScreen screen = new SplashScreen(stage);
 		screen.getScene().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
 		{
-
 			@Override
 			public void handle(KeyEvent event)
 			{
-				if (event.getCode() == KeyCode.SPACE) {
+				if (event.getCode().equals(KeyCode.SPACE)) {
 					counters = new ArrayList<Counter>();
 					counters.add(new LevelCounter());
 					counters.add(new ScoreCounter());
 					counters.add(new LifeCounter());
 					field = new Field(stage);
 					level = new LevelOne(field, counters);
+					field.getScene().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
+					{
+						@Override
+						public void handle(KeyEvent event)
+						{
+							if (event.getCode().equals(KeyCode.E)) {
+								field.addElement(new Bouncer());
+							} else if (event.getCode().equals(KeyCode.DIGIT1)) {
+								setLevel(1);
+							} else if (event.getCode().equals(KeyCode.DIGIT2)) {
+								setLevel(2);
+							} else if (event.getCode().equals(KeyCode.DIGIT3)) {
+								setLevel(3);
+							}
+						}
+
+					});
 				}
 				if (event.getCode() == KeyCode.RIGHT) {
 					screen.nextScreen();
@@ -94,20 +110,28 @@ public class Game extends Application
 
 	private void nextLevel()
 	{
-		System.out.println("yes");
-		for (Counter counter : counters) {
-			if (counter instanceof LevelCounter) {
-				((LevelCounter) counter).add(1);
-			}
-		}
 		if (level instanceof LevelOne) {
-			System.out.println("CORY");
-			level = new LevelTwo(field, counters);
+			setLevel(2);
 		} else if (level instanceof LevelTwo) {
-			System.out.println("IN THE HOUSE");
-			level = new LevelThree(field, counters);
+			setLevel(3);
 		} else {
 			field.getStage().close();
+		}
+	}
+
+	private void setLevel(int levelNumber)
+	{
+		for (Counter counter : counters) {
+			if (counter instanceof LevelCounter) {
+				((LevelCounter) counter).set(levelNumber);
+			}
+		}
+		if (levelNumber == 1) {
+			level = new LevelOne(field, counters);
+		} else if (levelNumber == 2) {
+			level = new LevelTwo(field, counters);
+		} else {
+			level = new LevelThree(field, counters);
 		}
 	}
 

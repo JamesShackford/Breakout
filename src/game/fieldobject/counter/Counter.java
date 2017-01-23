@@ -22,6 +22,11 @@ public abstract class Counter implements FieldObject
 		label.setTextFill(TEXTCOLOR);
 	}
 
+	public void set(int count)
+	{
+		this.count = count;
+	}
+
 	public void add(int addition)
 	{
 		count += addition;

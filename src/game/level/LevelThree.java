@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.Field;
 import game.StageBuilder;
+import game.fieldobject.Bouncer;
 import game.fieldobject.Paddle;
 import game.fieldobject.brick.Brick;
 import game.fieldobject.counter.Counter;
@@ -11,9 +12,11 @@ import game.fieldobject.counter.Counter;
 public class LevelThree extends Level
 {
 
+	private final double STARTDISTANCE = 100;
+
 	public LevelThree(Field field, ArrayList<Counter> counters)
 	{
-		super(field, counters);
+		super(field, counters, 1.3 * Bouncer.NORMALSPEED);
 	}
 
 	@Override
@@ -36,7 +39,7 @@ public class LevelThree extends Level
 		brickLayout.add(layer3);
 		brickLayout.add(layer4);
 		brickLayout.add(layer5);
-		return StageBuilder.buildBricks(100, brickLayout);
+		return StageBuilder.buildBricks(STARTDISTANCE, brickLayout);
 	}
 
 }

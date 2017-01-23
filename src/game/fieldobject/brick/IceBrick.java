@@ -17,6 +17,7 @@ public class IceBrick extends Brick
 	public IceBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
+		super();
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.LIGHTSKYBLUE,
 				Color.DEEPSKYBLUE);
 	}

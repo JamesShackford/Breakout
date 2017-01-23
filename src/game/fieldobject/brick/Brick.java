@@ -25,6 +25,11 @@ public abstract class Brick extends FieldPolarObject
 
 	private boolean destroyed;
 
+	public Brick()
+	{
+		this.destroyed = false;
+	}
+
 	@Override
 	public ArrayList<FieldObject> step(double secondDelay, Field field)
 	{

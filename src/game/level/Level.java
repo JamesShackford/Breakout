@@ -14,11 +14,12 @@ public abstract class Level
 {
 	private Field field;
 
-	public Level(Field field, ArrayList<Counter> counters)
+	public Level(Field field, ArrayList<Counter> counters, double bouncerSpeed)
 	{
 		field.getFieldElements().clear();
 		field.refreshImages();
 		Bouncer myBouncer = new Bouncer();
+		myBouncer.setSpeed(bouncerSpeed);
 		Planet planet = new Planet();
 		Paddle paddle = makePaddle();
 		ArrayList<Brick> brickConfiguration = makeBrickConfiguration();
@@ -46,7 +47,7 @@ public abstract class Level
 	public boolean levelComplete(Field field)
 	{
 		for (FieldObject obj : field.getFieldElements()) {
-			if (obj instanceof Brick && ((Brick) obj).requiredToEnd() && !((Brick) obj).getDestroyed()) {
+			if (obj instanceof Brick && !((Brick) obj).getDestroyed() && ((Brick) obj).requiredToEnd()) {
 				return false;
 			}
 		}

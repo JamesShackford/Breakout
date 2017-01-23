@@ -66,8 +66,7 @@ public class ThreeHitBrick extends Brick
 	@Override
 	public boolean requiredToEnd()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return REQUIRED_TO_END;
 	}
 
 }
