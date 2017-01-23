@@ -18,7 +18,7 @@ Information about using: Cheat codes are:
 	'R' --> resets ball/paddle to initial position
 	'E' --> adds extra ball to field
 
-Known bugs, crashes, or problems: The bouncer does not bounce off the edge of a Brick according to the law of reflection--it takes a different path instead for some reason. Occasionally, a bouncer will travel through an unbreakable brick.
+Known bugs, crashes, or problems: The bouncer does not bounce off the edge of a Brick according to the law of reflection--it takes a different path instead for some reason. Occasionally, a bouncer will travel through an unbreakable brick. When bouncer hits edge of 2-hit block, it will instantly destroy it.
 
 Extra features: Made the paddle and entire stage behave with circular motion.
 I included 5 different power-ups instead of the required 3.
