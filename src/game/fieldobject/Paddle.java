@@ -7,7 +7,6 @@ import game.PolarUtil;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 
 /**
  * The Paddle object is able to move around with the arrow keys and can reflect
@@ -71,6 +70,10 @@ public class Paddle extends FieldPolarObject
 		this.sticky = sticky;
 	}
 
+	/**
+	 * Increase the size of the paddle (done whenever the Size power-up has been
+	 * gotten
+	 */
 	public void increaseSize()
 	{
 		if (!this.getIncreasedSize()) {
@@ -118,8 +121,6 @@ public class Paddle extends FieldPolarObject
 				Bouncer thisBouncer = (Bouncer) obj;
 				// if a bouncer hits the paddle, reflect the ball
 				if (this.intersects(thisBouncer) && !thisBouncer.getStickingToPaddle()) {
-					// what happens if the ball hits the left/right edge of the
-					// paddle?
 					if (this.getSticky()) {
 						thisBouncer.setStickingToPaddle(true);
 					}
@@ -129,6 +130,11 @@ public class Paddle extends FieldPolarObject
 					double[] normalVector;
 					// determine the normal vector based on where the bouncer
 					// his the paddle
+					// if the bouncer is within the paddle, make sure it gets
+					// out and isn't stuck inside.
+					// this is done by assigning the normalVector accordingly
+					// (if stuck inside, reflect across tangent,
+					// else reflect across the normal vector)
 					if (bouncerRadius >= this.getInnerRadius() && bouncerRadius <= this.getOuterRadius()) {
 						normalVector = PolarUtil.getTangentVector(thisBouncer.getX(), thisBouncer.getY(), centerX,
 								centerY, false);
@@ -142,7 +148,6 @@ public class Paddle extends FieldPolarObject
 			}
 		}
 		// update the position of the paddle based on its speed
-		Path initialPath = this.getSemiRing();
 		this.setSemiRing(this.getInnerRadius(), this.getOuterRadius(), this.getDegreeBegin() + speed * secondDelay,
 				this.getDegreeEnd() + speed * secondDelay, centerX, centerY, FILL_COLOR, STROKE_COLOR);
 		// slow the paddle down until it reaches 0 speed when no keys are being

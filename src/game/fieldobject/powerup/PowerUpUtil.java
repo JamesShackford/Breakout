@@ -10,14 +10,19 @@ import java.util.Random;
  */
 public class PowerUpUtil
 {
+	/**
+	 * Get a power up at random. Returns null if no power-up was made
+	 * 
+	 * @param getPowerUpProbability
+	 * @return Randomly created power-up or null
+	 */
 	public static PowerUp getPowerUp(double getPowerUpProbability)
 	{
 		// The summation of the probabilities of all power ups must be less than
 		// 1.
 		// Determine which power up to produce at Random according to the
-		// block's
-		// probability (getPowerUpProbability) and the power-up's probability
-		// (ProbabilityClazz.PROBABILITY)
+		// block's probability (getPowerUpProbability) and the power-up's
+		// probability (ProbabilityClazz.PROBABILITY)
 		Random rand = new Random();
 		double randDouble = rand.nextDouble();
 		double currVal = getPowerUpProbability * ExtraBallPowerUp.PROBABILITY;

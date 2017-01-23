@@ -11,8 +11,8 @@ import javafx.scene.input.KeyEvent;
 
 public class Bouncer extends FieldCartesianObject
 {
-	private final double SPEEDINCREASE = 1.1;
-	public static final double NORMALSPEED = Field.SIZE / (200 * Game.SECOND_DELAY);
+	private final double SPEED_INCREASE = 1.1;
+	public static final double NORMAL_SPEED = Field.SIZE / (200 * Game.SECOND_DELAY);
 
 	private double speed;
 	// x direction is index 0, y direction is index 1
@@ -30,7 +30,7 @@ public class Bouncer extends FieldCartesianObject
 		this.stickingToPaddle = true;
 		this.setImage("ball.gif");
 		this.setDirection(new double[] { 1.0, 1.0 });
-		this.setSpeed(NORMALSPEED);
+		this.setSpeed(NORMAL_SPEED);
 	}
 
 	public double getXSpeed()
@@ -126,11 +126,11 @@ public class Bouncer extends FieldCartesianObject
 		}
 		// F --> increase speed of ball
 		if (key.getCode().equals(KeyCode.F)) {
-			this.setSpeed(this.getSpeed() * SPEEDINCREASE);
+			this.setSpeed(this.getSpeed() * SPEED_INCREASE);
 		}
 		// S --> decrease speed of ball
 		if (key.getCode().equals(KeyCode.S)) {
-			this.setSpeed(this.getSpeed() / SPEEDINCREASE);
+			this.setSpeed(this.getSpeed() / SPEED_INCREASE);
 		}
 		// R --> reset original ball position
 		if (key.getCode().equals(KeyCode.R)) {
@@ -190,6 +190,7 @@ public class Bouncer extends FieldCartesianObject
 			}
 		}
 
+		// if the ball is dead, it should not have an image
 		if (isDead()) {
 			this.setImage(new ImageView());
 		}

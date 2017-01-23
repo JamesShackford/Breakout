@@ -31,11 +31,6 @@ public abstract class FieldCartesianObject implements FieldObject
 		return image.getBoundsInLocal().getWidth() / 2;
 	}
 
-	/**
-	 * Get the node that this field object represents
-	 * 
-	 * @return node object
-	 */
 	@Override
 	public Node getNode()
 	{
@@ -75,27 +70,12 @@ public abstract class FieldCartesianObject implements FieldObject
 		this.image = new ImageView(im);
 	}
 
-	/**
-	 * The action performed on this FieldObject whenever a keyboard button is
-	 * pressed.
-	 * 
-	 * @param key
-	 *            KeyEvent which represents the pressing of a button
-	 */
 	@Override
 	public void onKeyPressed(KeyEvent key)
 	{
 
 	}
 
-	/**
-	 * The action performed on this FieldObject whenever the mouse is clicked.
-	 * 
-	 * @param x
-	 *            X position where the mouse was clicked
-	 * @param y
-	 *            Y position where the mouse was clicked
-	 */
 	@Override
 	public void onMouseClicked(double x, double y)
 	{

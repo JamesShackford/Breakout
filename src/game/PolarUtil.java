@@ -11,7 +11,8 @@ public class PolarUtil
 {
 	/**
 	 * Makes a semiRing from a beginningRadius to an outerRadius and from a
-	 * beginning degree to an ending degree.
+	 * beginning degree to an ending degree. This is made by using the JavaFX
+	 * Path class.
 	 * 
 	 * A semiRing is a section of a ring,
 	 * 

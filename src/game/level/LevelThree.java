@@ -16,7 +16,7 @@ public class LevelThree extends Level
 
 	public LevelThree(Field field, ArrayList<Counter> counters)
 	{
-		super(field, counters, 1.3 * Bouncer.NORMALSPEED);
+		super(field, counters, 1.3 * Bouncer.NORMAL_SPEED);
 	}
 
 	@Override

@@ -15,6 +15,7 @@ public abstract class FieldPolarObject implements FieldObject
 	public void setSemiRing(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd,
 			double centerX, double centerY, Color fillColor, Color strokeColor)
 	{
+		// degrees should be between 0 and 360
 		while (degreeBegin > 360 || degreeEnd > 360) {
 			degreeBegin -= 360;
 			degreeEnd -= 360;
@@ -62,13 +63,14 @@ public abstract class FieldPolarObject implements FieldObject
 		return degreeEnd;
 	}
 
-	// intersects a cartesian object if the object is within its radial
-	// boundaries and within its
-	// degree boundaries
+	// intersects a Cartesian object if the object is within its radial
+	// boundaries and within its degree boundaries
 	public boolean intersects(FieldCartesianObject obj)
 	{
 		boolean hitCurve = hitCurve(obj.getX(), obj.getY(), obj.getRadius());
+		// check if top-left part of colliding object hit this polar object
 		boolean topLeftHitSide = hitSide(obj.getX() - obj.getRadius(), obj.getY() - obj.getRadius());
+		// check if bottom-right part of colliding object hit this polar object
 		boolean bottomRightHitSide = hitSide(obj.getX() + obj.getRadius(), obj.getY() + obj.getRadius());
 		return hitCurve || topLeftHitSide || bottomRightHitSide;
 	}
@@ -86,6 +88,8 @@ public abstract class FieldPolarObject implements FieldObject
 		double[] polarCoords = PolarUtil.toPolar(x - Field.CENTER_X, y - Field.CENTER_Y);
 		double distToOrigin = polarCoords[0];
 		double angleFromOrigin = polarCoords[1];
+		// check if colliding object's coordinates are within the radial
+		// boundaries of this polar object
 		boolean inRadiusRange = distToOrigin + imageRadius >= this.getInnerRadius()
 				&& distToOrigin - imageRadius <= this.getOuterRadius();
 		// include the cases where one part of the PolarObject is in quadrant 4

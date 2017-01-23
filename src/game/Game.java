@@ -34,6 +34,7 @@ public class Game extends Application
 	@Override
 	public void start(Stage stage) throws Exception
 	{
+		// begin by opening the splash screen
 		SplashScreen screen = new SplashScreen(stage);
 		screen.getScene().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
 		{
@@ -108,7 +109,7 @@ public class Game extends Application
 			for (FieldObject obj : addedObjects) {
 				field.addElement(obj);
 			}
-			if (checkLevelRestart()) {
+			if (checkLifeLost()) {
 				subtractLife();
 			}
 			field.refreshImages();
@@ -145,8 +146,8 @@ public class Game extends Application
 		}
 	}
 
-	// level restarts if all bouncers are dead(they have hit the planet)
-	private boolean checkLevelRestart()
+	// life is lost if all bouncers are dead(they have hit the planet)
+	private boolean checkLifeLost()
 	{
 		for (FieldObject elem : field.getFieldElements()) {
 			if (elem instanceof Bouncer && !((Bouncer) elem).isDead()) {

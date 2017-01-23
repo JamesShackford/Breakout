@@ -16,7 +16,7 @@ public class LevelOne extends Level
 
 	public LevelOne(Field field, ArrayList<Counter> counters)
 	{
-		super(field, counters, Bouncer.NORMALSPEED);
+		super(field, counters, Bouncer.NORMAL_SPEED);
 	}
 
 	@Override

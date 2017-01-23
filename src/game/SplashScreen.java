@@ -193,7 +193,7 @@ public class SplashScreen
 	}
 
 	/**
-	 * Creates a rectangle for display
+	 * Creates a rectangle for displaying the image of a brick
 	 * 
 	 * @param size
 	 * @param x
@@ -214,6 +214,9 @@ public class SplashScreen
 		return brick;
 	}
 
+	/**
+	 * Move to the next screen of the splash page
+	 */
 	public void nextScreen()
 	{
 		root.getChildren().clear();
@@ -229,6 +232,9 @@ public class SplashScreen
 		}
 	}
 
+	/**
+	 * Move to the previous screen of the splash page
+	 */
 	public void lastScreen()
 	{
 		root.getChildren().clear();

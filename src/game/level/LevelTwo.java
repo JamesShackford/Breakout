@@ -16,7 +16,7 @@ public class LevelTwo extends Level
 
 	public LevelTwo(Field field, ArrayList<Counter> counters)
 	{
-		super(field, counters, 1.1 * Bouncer.NORMALSPEED);
+		super(field, counters, 1.1 * Bouncer.NORMAL_SPEED);
 	}
 
 	@Override

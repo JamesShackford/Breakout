@@ -15,6 +15,10 @@ public class StageBuilder
 	 * Build a configuration of bricks. "1" -> RegularBrick "2" -> TwoHitBrick
 	 * "3" -> ThreeHitBrick "U" -> UnbreakableBrick "I" -> IceBrick
 	 * 
+	 * This method creates rings of bricks starting at the specifiedRadius. Each
+	 * of the rings has a certain thickness, and each brick in the ring takes up
+	 * the same amount of space as the other bricks.
+	 * 
 	 * @param startingRadius
 	 * @param brickLayout
 	 *            Array of Strings representing rows of bricks to be added to
