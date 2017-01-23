@@ -103,6 +103,10 @@ public class Field
 		}
 	}
 
+	/**
+	 * Delete all of the images from the field and add the elements that are in
+	 * the Field's fieldElements array
+	 */
 	public void refreshImages()
 	{
 		root.getChildren().clear();
@@ -111,11 +115,6 @@ public class Field
 		}
 	}
 
-	/**
-	 * Get the Scene depicted by this Field object
-	 * 
-	 * @return Scene
-	 */
 	public Scene getScene()
 	{
 		return myScene;
@@ -126,11 +125,6 @@ public class Field
 		return stage;
 	}
 
-	/**
-	 * Get the FieldObjects that are on the Field
-	 * 
-	 * @return ArrayList of FieldObjects
-	 */
 	public ArrayList<FieldObject> getFieldElements()
 	{
 		return fieldElements;

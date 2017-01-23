@@ -139,4 +139,15 @@ public class PolarUtil
 		tangentVector[1] = -1 * normalVector[0];
 		return tangentVector;
 	}
+
+	public static double normalizeAngle(double angle)
+	{
+		while (angle > 360) {
+			angle -= 360;
+		}
+		while (angle < 0) {
+			angle += 360;
+		}
+		return angle;
+	}
 }

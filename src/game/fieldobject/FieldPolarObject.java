@@ -77,6 +77,11 @@ public abstract class FieldPolarObject implements FieldObject
 		double angleFromOrigin = polarCoords[1];
 		boolean inRadiusRange = distToOrigin + imageRadius >= this.getInnerRadius()
 				&& distToOrigin - imageRadius <= this.getOuterRadius();
+		if (this.getDegreeBegin() >= 360 || this.getDegreeEnd() >= 360) {
+			angleFromOrigin += 360;
+		} else if (this.getDegreeBegin() <= 0 || this.getDegreeEnd() <= 0) {
+			angleFromOrigin -= 360;
+		}
 		boolean inDegreeRange = (angleFromOrigin >= this.getDegreeBegin() && angleFromOrigin <= this.getDegreeEnd());
 		return inRadiusRange && inDegreeRange;
 	}
