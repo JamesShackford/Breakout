@@ -10,7 +10,7 @@ public class StageBuilder
 		double currRadius = startingRadius;
 		for (String[] brickLine : brickLayout) {
 			double currAngle = 0;
-			double angleIncrement = 360 / brickLine.length;
+			double angleIncrement = 360.0 / brickLine.length;
 			for (String currBrick : brickLine) {
 				Brick addedBrick = null;
 				if (currBrick.equals("1")) {

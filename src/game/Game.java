@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,12 +24,31 @@ public class Game extends Application
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		counters = new ArrayList<Counter>();
-		counters.add(new LevelCounter());
-		counters.add(new ScoreCounter());
-		counters.add(new LifeCounter());
-		field = new Field(stage);
-		level = new LevelOne(field, counters);
+		SplashScreen screen = new SplashScreen(stage);
+		screen.getScene().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>()
+		{
+
+			@Override
+			public void handle(KeyEvent event)
+			{
+				if (event.getCode() == KeyCode.SPACE) {
+					counters = new ArrayList<Counter>();
+					counters.add(new LevelCounter());
+					counters.add(new ScoreCounter());
+					counters.add(new LifeCounter());
+					field = new Field(stage);
+					level = new LevelOne(field, counters);
+				}
+				if (event.getCode() == KeyCode.RIGHT) {
+					screen.nextScreen();
+				}
+				if (event.getCode() == KeyCode.LEFT) {
+					screen.lastScreen();
+				}
+
+			}
+
+		});
 
 		// attach "game loop" to timeline to play it
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
@@ -39,22 +61,24 @@ public class Game extends Application
 
 	private void step(double SECOND_DELAY)
 	{
-		ArrayList<FieldObject> addedObjects = new ArrayList<FieldObject>();
-		for (FieldObject myElement : field.getFieldElements()) {
-			ArrayList<FieldObject> newAddedObjects = myElement.step(SECOND_DELAY, field);
-			if (newAddedObjects != null && newAddedObjects.size() != 0) {
-				addedObjects.addAll(newAddedObjects);
+		if (field != null) {
+			ArrayList<FieldObject> addedObjects = new ArrayList<FieldObject>();
+			for (FieldObject myElement : field.getFieldElements()) {
+				ArrayList<FieldObject> newAddedObjects = myElement.step(SECOND_DELAY, field);
+				if (newAddedObjects != null && newAddedObjects.size() != 0) {
+					addedObjects.addAll(newAddedObjects);
+				}
 			}
-		}
-		for (FieldObject obj : addedObjects) {
-			field.addElement(obj);
-		}
-		if (checkLevelRestart()) {
-			subtractLife();
-		}
-		field.refreshImages();
-		if (this.level.levelComplete(field)) {
-			nextLevel();
+			for (FieldObject obj : addedObjects) {
+				field.addElement(obj);
+			}
+			if (checkLevelRestart()) {
+				subtractLife();
+			}
+			field.refreshImages();
+			if (this.level.levelComplete(field)) {
+				nextLevel();
+			}
 		}
 	}
 

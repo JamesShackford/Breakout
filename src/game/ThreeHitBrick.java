@@ -11,8 +11,14 @@ import javafx.scene.paint.Color;
  */
 public class ThreeHitBrick extends Brick
 {
-	private int hits;
+	public static final Color FILLCOLOR1 = Color.ORANGE;
+	public static final Color FILLCOLOR2 = Color.YELLOW;
+	public static final Color FILLCOLOR3 = Color.WHITE;
+	public static final Color STROKECOLOR1 = Color.ORANGERED;
+	public static final Color STROKECOLOR2 = Color.PURPLE;
+	public static final Color STROKECOLOR3 = Color.AZURE;
 
+	private int hits;
 	private final double POWER_UP_PROBABILITY = 1.10;
 	private final boolean REQUIRED_TO_END = true;
 	private final int POINTS = 300;
@@ -20,8 +26,7 @@ public class ThreeHitBrick extends Brick
 	ThreeHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.ORANGE,
-				Color.ORANGERED);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR1, STROKECOLOR1);
 		hits = 0;
 	}
 
@@ -35,11 +40,11 @@ public class ThreeHitBrick extends Brick
 				hits += 1;
 				this.reflectBouncer(bouncer);
 				if (hits == 1) {
-					this.getSemiRing().setFill(Color.YELLOW);
-					this.getSemiRing().setStroke(Color.PURPLE);
+					this.getSemiRing().setFill(FILLCOLOR2);
+					this.getSemiRing().setStroke(STROKECOLOR2);
 				} else if (hits == 2) {
-					this.getSemiRing().setFill(Color.WHITE);
-					this.getSemiRing().setStroke(Color.AZURE);
+					this.getSemiRing().setFill(FILLCOLOR3);
+					this.getSemiRing().setStroke(STROKECOLOR3);
 				} else {
 					scoreCounter.add(POINTS);
 					return this.destroy();

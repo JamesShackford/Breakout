@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 
 public class IceBrick extends Brick
 {
+	public final static Color FILLCOLOR = Color.LIGHTSKYBLUE;
+	public final static Color STROKECOLOR = Color.DEEPSKYBLUE;
+
 	private final double POWER_UP_PROBABILITY = 1.20;
 	private final boolean REQUIRED_TO_END = false;
 	private final int POINTS = 500;

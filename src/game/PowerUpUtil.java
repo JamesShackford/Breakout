@@ -15,9 +15,9 @@ public class PowerUpUtil
 		// Allow rand value to go over 1.0?
 		Random rand = new Random();
 		double randDouble = rand.nextDouble();
-		double currVal = getPowerUpProbability * ExtraBallPower.PROBABILITY;
+		double currVal = getPowerUpProbability * ExtraBallPowerUp.PROBABILITY;
 		if (randDouble < currVal) {
-			return new ExtraBallPower();
+			return new ExtraBallPowerUp();
 		}
 		currVal += getPowerUpProbability * StickyPaddlePowerUp.PROBABILITY;
 		if (randDouble < currVal) {

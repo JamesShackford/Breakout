@@ -10,12 +10,13 @@ import javafx.scene.paint.Color;
 public abstract class Counter implements FieldObject
 {
 	private int count;
-	private Label label = new Label("Count: ");
+	private Label label;
 	private final Color TEXTCOLOR = Color.ANTIQUEWHITE;
 
 	public Counter(int startCount)
 	{
 		this.count = startCount;
+		label = new Label();
 		label.setTextFill(TEXTCOLOR);
 	}
 

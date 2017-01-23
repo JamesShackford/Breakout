@@ -1,14 +1,15 @@
 package game;
+
 import java.util.ArrayList;
 
 /*
  * Power Up which gives the player an extra ball.
  */
-public class ExtraBallPower extends PowerUp
+public class ExtraBallPowerUp extends PowerUp
 {
 	public static final double PROBABILITY = 0.1;
 
-	public ExtraBallPower()
+	public ExtraBallPowerUp()
 	{
 		this.setImage("extraballpower.gif");
 	}

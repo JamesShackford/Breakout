@@ -4,12 +4,15 @@ import javafx.scene.paint.Color;
 
 public class UnbreakableBrick extends Brick
 {
+	public static final Color FILLCOLOR = Color.GRAY;
+	public static final Color STROKECOLOR = Color.SILVER;
+
 	private final boolean REQUIRED_TO_END = false;
 
 	UnbreakableBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.GRAY, Color.SILVER);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR, STROKECOLOR);
 	}
 
 	@Override

@@ -11,8 +11,12 @@ import javafx.scene.paint.Color;
  */
 public class TwoHitBrick extends Brick
 {
-	private int hits;
+	public static final Color FILLCOLOR1 = Color.CRIMSON;
+	public static final Color FILLCOLOR2 = Color.DARKMAGENTA;
+	public static final Color STROKECOLOR1 = Color.TOMATO;
+	public static final Color STROKECOLOR2 = Color.BLACK;
 
+	private int hits;
 	private final double POWER_UP_PROBABILITY = 1.05;
 	private final boolean REQUIRED_TO_END = true;
 	private final int POINTS = 150;
@@ -20,8 +24,7 @@ public class TwoHitBrick extends Brick
 	TwoHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
-		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.CRIMSON,
-				Color.TOMATO);
+		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR1, STROKECOLOR1);
 		hits = 0;
 	}
 
@@ -36,8 +39,8 @@ public class TwoHitBrick extends Brick
 				hits += 1;
 				this.reflectBouncer(bouncer);
 				if (hits == 1) {
-					this.getSemiRing().setFill(Color.DARKMAGENTA);
-					this.getSemiRing().setStroke(Color.BLACK);
+					this.getSemiRing().setFill(FILLCOLOR2);
+					this.getSemiRing().setStroke(STROKECOLOR2);
 				} else {
 					scoreCounter.add(POINTS);
 					return this.destroy();
