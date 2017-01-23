@@ -1,7 +1,9 @@
-package game;
+package game.fieldobject.counter;
 
 import java.util.ArrayList;
 
+import game.Field;
+import game.fieldobject.FieldObject;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;

@@ -2,6 +2,13 @@ package game;
 
 import java.util.ArrayList;
 
+import game.fieldobject.brick.Brick;
+import game.fieldobject.brick.IceBrick;
+import game.fieldobject.brick.RegularBrick;
+import game.fieldobject.brick.ThreeHitBrick;
+import game.fieldobject.brick.TwoHitBrick;
+import game.fieldobject.brick.UnbreakableBrick;
+
 public class StageBuilder
 {
 	public static ArrayList<Brick> buildBricks(double startingRadius, ArrayList<String[]> brickLayout)

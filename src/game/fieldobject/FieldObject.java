@@ -1,6 +1,7 @@
-package game;
+package game.fieldobject;
 import java.util.ArrayList;
 
+import game.Field;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 

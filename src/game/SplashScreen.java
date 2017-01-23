@@ -1,5 +1,15 @@
 package game;
 
+import game.fieldobject.brick.IceBrick;
+import game.fieldobject.brick.RegularBrick;
+import game.fieldobject.brick.ThreeHitBrick;
+import game.fieldobject.brick.TwoHitBrick;
+import game.fieldobject.brick.UnbreakableBrick;
+import game.fieldobject.powerup.ExtraBallPowerUp;
+import game.fieldobject.powerup.FireballPowerUp;
+import game.fieldobject.powerup.PointsPowerUp;
+import game.fieldobject.powerup.SizePowerUp;
+import game.fieldobject.powerup.StickyPaddlePowerUp;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

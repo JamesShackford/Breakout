@@ -1,6 +1,14 @@
-package game;
+package game.level;
 
 import java.util.ArrayList;
+
+import game.Field;
+import game.fieldobject.Bouncer;
+import game.fieldobject.FieldObject;
+import game.fieldobject.Paddle;
+import game.fieldobject.Planet;
+import game.fieldobject.brick.Brick;
+import game.fieldobject.counter.Counter;
 
 public abstract class Level
 {

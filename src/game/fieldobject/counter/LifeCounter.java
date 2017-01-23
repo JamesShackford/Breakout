@@ -1,4 +1,4 @@
-package game;
+package game.fieldobject.counter;
 
 public class LifeCounter extends Counter
 {

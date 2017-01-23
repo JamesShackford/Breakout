@@ -1,4 +1,4 @@
-package game;
+package game.fieldobject.powerup;
 
 import java.util.Random;
 

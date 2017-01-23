@@ -1,5 +1,8 @@
-package game;
+package game.fieldobject.brick;
 
+import game.fieldobject.Bouncer;
+import game.fieldobject.counter.ScoreCounter;
+import game.fieldobject.powerup.PowerUp;
 import javafx.scene.paint.Color;
 
 public class UnbreakableBrick extends Brick
@@ -9,8 +12,8 @@ public class UnbreakableBrick extends Brick
 
 	private final boolean REQUIRED_TO_END = false;
 
-	UnbreakableBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
-			double centerY)
+	public UnbreakableBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd,
+			double centerX, double centerY)
 	{
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR, STROKECOLOR);
 	}

@@ -1,5 +1,8 @@
-package game;
+package game.fieldobject.brick;
 
+import game.fieldobject.Bouncer;
+import game.fieldobject.counter.ScoreCounter;
+import game.fieldobject.powerup.PowerUp;
 import javafx.scene.paint.Color;
 
 /**
@@ -9,19 +12,21 @@ import javafx.scene.paint.Color;
  * @author jimmy
  *
  */
-public class TwoHitBrick extends Brick
+public class ThreeHitBrick extends Brick
 {
-	public static final Color FILLCOLOR1 = Color.CRIMSON;
-	public static final Color FILLCOLOR2 = Color.DARKMAGENTA;
-	public static final Color STROKECOLOR1 = Color.TOMATO;
-	public static final Color STROKECOLOR2 = Color.BLACK;
+	public static final Color FILLCOLOR1 = Color.ORANGE;
+	public static final Color FILLCOLOR2 = Color.YELLOW;
+	public static final Color FILLCOLOR3 = Color.WHITE;
+	public static final Color STROKECOLOR1 = Color.ORANGERED;
+	public static final Color STROKECOLOR2 = Color.PURPLE;
+	public static final Color STROKECOLOR3 = Color.AZURE;
 
 	private int hits;
-	private final double POWER_UP_PROBABILITY = 1.05;
+	private final double POWER_UP_PROBABILITY = 1.10;
 	private final boolean REQUIRED_TO_END = true;
-	private final int POINTS = 150;
+	private final int POINTS = 300;
 
-	TwoHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
+	public ThreeHitBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR1, STROKECOLOR1);
@@ -33,7 +38,6 @@ public class TwoHitBrick extends Brick
 	{
 		if (this.intersects(bouncer) && !getDestroyed()) {
 			if (bouncer.isFireball()) {
-				scoreCounter.add(POINTS);
 				return this.destroy();
 			} else {
 				hits += 1;
@@ -41,6 +45,9 @@ public class TwoHitBrick extends Brick
 				if (hits == 1) {
 					this.getSemiRing().setFill(FILLCOLOR2);
 					this.getSemiRing().setStroke(STROKECOLOR2);
+				} else if (hits == 2) {
+					this.getSemiRing().setFill(FILLCOLOR3);
+					this.getSemiRing().setStroke(STROKECOLOR3);
 				} else {
 					scoreCounter.add(POINTS);
 					return this.destroy();
@@ -59,7 +66,8 @@ public class TwoHitBrick extends Brick
 	@Override
 	public boolean requiredToEnd()
 	{
-		return REQUIRED_TO_END;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

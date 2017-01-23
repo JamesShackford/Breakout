@@ -1,6 +1,15 @@
-package game;
+package game.fieldobject.brick;
 
 import java.util.ArrayList;
+
+import game.Field;
+import game.PolarUtil;
+import game.fieldobject.Bouncer;
+import game.fieldobject.FieldObject;
+import game.fieldobject.FieldPolarObject;
+import game.fieldobject.counter.ScoreCounter;
+import game.fieldobject.powerup.PowerUp;
+import game.fieldobject.powerup.PowerUpUtil;
 
 /*
  * Class which abstractly defines what a brick is. A brick must have methods for:

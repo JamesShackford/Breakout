@@ -2,6 +2,16 @@ package game;
 
 import java.util.ArrayList;
 
+import game.fieldobject.Bouncer;
+import game.fieldobject.FieldObject;
+import game.fieldobject.counter.Counter;
+import game.fieldobject.counter.LevelCounter;
+import game.fieldobject.counter.LifeCounter;
+import game.fieldobject.counter.ScoreCounter;
+import game.level.Level;
+import game.level.LevelOne;
+import game.level.LevelThree;
+import game.level.LevelTwo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -84,16 +94,20 @@ public class Game extends Application
 
 	private void nextLevel()
 	{
+		System.out.println("yes");
 		for (Counter counter : counters) {
 			if (counter instanceof LevelCounter) {
 				((LevelCounter) counter).add(1);
 			}
 		}
 		if (level instanceof LevelOne) {
+			System.out.println("CORY");
 			level = new LevelTwo(field, counters);
-		}
-		if (level instanceof LevelTwo) {
+		} else if (level instanceof LevelTwo) {
+			System.out.println("IN THE HOUSE");
 			level = new LevelThree(field, counters);
+		} else {
+			field.getStage().close();
 		}
 	}
 

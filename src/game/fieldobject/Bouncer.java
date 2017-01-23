@@ -1,7 +1,10 @@
-package game;
+package game.fieldobject;
 
 import java.util.ArrayList;
 
+import game.Field;
+import game.Game;
+import game.PolarUtil;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

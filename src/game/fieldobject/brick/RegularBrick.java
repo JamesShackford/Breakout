@@ -1,5 +1,8 @@
-package game;
+package game.fieldobject.brick;
 
+import game.fieldobject.Bouncer;
+import game.fieldobject.counter.ScoreCounter;
+import game.fieldobject.powerup.PowerUp;
 import javafx.scene.paint.Color;
 
 /**
@@ -17,7 +20,7 @@ public class RegularBrick extends Brick
 	private final boolean REQUIRED_TO_END = true;
 	private final int POINTS = 50;
 
-	RegularBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
+	public RegularBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, FILLCOLOR, STROKECOLOR);

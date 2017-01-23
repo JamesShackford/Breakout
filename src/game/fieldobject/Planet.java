@@ -1,10 +1,13 @@
-package game;
+package game.fieldobject;
+
 import java.util.ArrayList;
+
+import game.Field;
 
 public class Planet extends FieldCartesianObject
 {
 
-	Planet()
+	public Planet()
 	{
 		this.setImage("planet.gif");
 		this.getImage().setPreserveRatio(true);

@@ -1,5 +1,7 @@
-package game;
+package game.fieldobject;
 
+import game.Field;
+import game.PolarUtil;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;

@@ -1,6 +1,12 @@
-package game;
+package game.level;
 
 import java.util.ArrayList;
+
+import game.Field;
+import game.StageBuilder;
+import game.fieldobject.Paddle;
+import game.fieldobject.brick.Brick;
+import game.fieldobject.counter.Counter;
 
 public class LevelOne extends Level
 {

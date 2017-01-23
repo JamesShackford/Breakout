@@ -1,4 +1,6 @@
-package game;
+package game.fieldobject.counter;
+
+import game.Field;
 
 public class ScoreCounter extends Counter
 {

@@ -1,5 +1,8 @@
-package game;
+package game.fieldobject.brick;
 
+import game.fieldobject.Bouncer;
+import game.fieldobject.counter.ScoreCounter;
+import game.fieldobject.powerup.PowerUp;
 import javafx.scene.paint.Color;
 
 public class IceBrick extends Brick
@@ -11,7 +14,7 @@ public class IceBrick extends Brick
 	private final boolean REQUIRED_TO_END = false;
 	private final int POINTS = 500;
 
-	IceBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
+	public IceBrick(double innerRadius, double outerRadius, double degreeBegin, double degreeEnd, double centerX,
 			double centerY)
 	{
 		this.setSemiRing(innerRadius, outerRadius, degreeBegin, degreeEnd, centerX, centerY, Color.LIGHTSKYBLUE,

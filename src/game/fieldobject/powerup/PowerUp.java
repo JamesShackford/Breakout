@@ -1,5 +1,12 @@
-package game;
+package game.fieldobject.powerup;
 import java.util.ArrayList;
+
+import game.Field;
+import game.PolarUtil;
+import game.fieldobject.FieldCartesianObject;
+import game.fieldobject.FieldObject;
+import game.fieldobject.Paddle;
+import game.fieldobject.Planet;
 
 /**
  * Abstractly define a PowerUp as an object that, when it touches a paddle,

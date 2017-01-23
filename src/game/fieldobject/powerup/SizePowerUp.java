@@ -1,6 +1,10 @@
-package game;
+package game.fieldobject.powerup;
 
 import java.util.ArrayList;
+
+import game.Field;
+import game.fieldobject.FieldObject;
+import game.fieldobject.Paddle;
 
 public class SizePowerUp extends PowerUp
 {

@@ -1,6 +1,10 @@
-package game;
+package game.fieldobject.powerup;
 
 import java.util.ArrayList;
+
+import game.Field;
+import game.fieldobject.Bouncer;
+import game.fieldobject.FieldObject;
 
 public class FireballPowerUp extends PowerUp
 {

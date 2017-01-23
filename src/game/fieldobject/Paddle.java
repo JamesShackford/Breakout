@@ -1,7 +1,9 @@
-package game;
+package game.fieldobject;
 
 import java.util.ArrayList;
 
+import game.Field;
+import game.PolarUtil;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
