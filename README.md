@@ -21,6 +21,7 @@ Information about using: Cheat codes are:
 Known bugs, crashes, or problems: The bouncer does not bounce off the edge of a Brick according to the law of reflection--it takes a different path instead for some reason. Occasionally, a bouncer will travel through an unbreakable brick. When bouncer hits edge of 2-hit block, it will instantly destroy it.
 
 Extra features: Made the paddle and entire stage behave with circular motion.
+Press spacebar to begin the bouncer's motion. If spacebar is not pressed, the bouncer follows the paddle
 I included 5 different power-ups instead of the required 3.
 I included 5 different kinds of bricks instead of the required 3.
 Splash screen has multiple pages so that user can scroll through the instructions
